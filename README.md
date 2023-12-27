@@ -1,4 +1,8 @@
 # JangTrello
+<p align="center">
+  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/c9954f02-230a-4b29-9c22-526728ea4092">
+</p>
+
 ## Entity-Relationship Diagram (ERD)
 ### USER(Entity): TODO 서비스 사용자 개체
 
