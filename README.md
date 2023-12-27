@@ -2,14 +2,10 @@
 ## Entity-Relationship Diagram (ERD)
 ### USER(Entity): TODO 서비스 사용자 개체
 
-- USER_ID (Primary Key) : 사용자 아이디
-  
-- PASSWORD : 사용자 비밀번호
-  
-- NAME : 사용자 이름
-  
-- EMAIL : 사용자 이메일
-  
+- USER_ID (Primary Key) : 사용자 아이디  
+- PASSWORD : 사용자 비밀번호  
+- NAME : 사용자 이름  
+- EMAIL : 사용자 이메일  
 - CREATED_DATE : 사용자 계정 생성일
 
 ### LIST(Entity): 할 일 카드를 모아두는 리스트
@@ -28,13 +24,15 @@
 - USERNAME (Assuming it's the user who created the card) : 카드 생성 유저 이름
 - COMMENTS : 카드에 추가된 댓글 리스트
 - LIST_ID (Foreign Key referencing LIST) : 리스트 아이디
-### COMMENT(Entity):
 
-- COMMENT_ID (Primary Key)
-- CONTENT
-- CREATE_DATE
-- USER_ID (Foreign Key referencing USER)
-- CARD_ID (Foreign Key referencing CARD)
+### COMMENT(Entity): 카드에 기록된 댓글
+
+- COMMENT_ID (Primary Key) : 댓글 아이디
+- CONTENT : 댓글 내용
+- CREATE_DATE : 댓글 생성일
+- USER_ID (Foreign Key referencing USER) : 댓글 작성한 사용자 아이디
+- CARD_ID (Foreign Key referencing CARD) : 댓글이 작성된 카드 아이디
+  
 ---
 
 ## Relationships:
