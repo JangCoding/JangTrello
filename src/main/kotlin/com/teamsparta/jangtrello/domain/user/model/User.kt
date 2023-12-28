@@ -16,6 +16,10 @@ class User(
 
     @Column(name = "name")
     val name:String,
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val cardLists: MutableList<CardList> = mutableListOf()
+
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
