@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody
 interface UserService {
     fun signUp(
         @RequestBody request: SignUpRequest
-    ): ResponseEntity<UserResponse>
+    ): UserResponse
 
     fun logIn(
         @RequestBody request: LogInRequest
-    ): ResponseEntity<UserResponse>
+    ): UserResponse
     fun updateUser(
         @RequestBody request: UpdateUserRequest,
         @PathVariable userId:Long
-    ): ResponseEntity<UserResponse>
+    ): UserResponse
 }

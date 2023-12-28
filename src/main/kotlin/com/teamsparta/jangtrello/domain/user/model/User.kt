@@ -1,6 +1,5 @@
 package com.teamsparta.jangtrello.domain.user.model
 
-import com.teamsparta.jangtrello.domain.cardlist.dto.CardListResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.user.dto.UserResponse
 import jakarta.persistence.*
@@ -9,10 +8,10 @@ import jakarta.persistence.*
 @Table(name = "app_user")
 class User(
     @Column(name = "password")
-    val password : String,
+    var password : String,
 
     @Column(name = "email")
-    val email:String,
+    var email:String,
 
     @Column(name = "name")
     val name:String,
@@ -24,6 +23,14 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long? = null
+
+    fun addCardList(cardList: CardList) {
+        cardLists.add(cardList)
+    }
+
+    fun removeCardList(cardList: CardList) {
+        cardLists.remove(cardList)
+    }
 }
 
 fun User.toResponse(): UserResponse {

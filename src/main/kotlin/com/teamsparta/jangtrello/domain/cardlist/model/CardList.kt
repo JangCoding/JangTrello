@@ -35,7 +35,13 @@ class CardList(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long?=null
 
+    fun addCard(card: Card) {
+        cards.add(card)
+    }
 
+    fun removeCard(card: Card) {
+        cards.remove(card)
+    }
 }
 fun CardList.toResponse(): CardListResponse {
     return CardListResponse(
