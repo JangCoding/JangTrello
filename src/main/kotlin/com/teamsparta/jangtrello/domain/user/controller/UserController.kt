@@ -14,7 +14,6 @@ class UserController {
     fun signUp(@RequestBody request: SignUpRequest): ResponseEntity<UserResponse> {
         TODO()
     }
-
     @PostMapping("/logIn")
     fun logIn(@RequestBody request: LogInRequest): ResponseEntity<UserResponse> {
         TODO()

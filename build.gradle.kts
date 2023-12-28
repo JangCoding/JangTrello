@@ -49,11 +49,12 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     // 트랜잭션이 담긴 패키지 jpa 추가
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+//	// 레포지토리 사용하기 위해 h2 db 추가 // DB 연결하면 안써도 됨
+//	implementation("com.h2database:h2")
+
 	// 어플리케이션이 실행될 때만 DB 드라이버를 설치하겠다.
 	runtimeOnly("org.postgresql:postgresql")
-
-	// 레포지토리 사용하기 위해 h2 db 추가 // DB 연결하면 안써도 됨
-	implementation("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
