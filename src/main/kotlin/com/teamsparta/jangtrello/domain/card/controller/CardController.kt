@@ -52,7 +52,6 @@ class CardController(
     fun deleteCard(
         @PathVariable cardListId : Long,
         @PathVariable cardId : Long,
-        @RequestBody request : CreateCardRequest
     ) : ResponseEntity<Unit>{
 
         cardListService.deleteCard(cardListId, cardId)

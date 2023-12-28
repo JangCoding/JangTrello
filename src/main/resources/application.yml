@@ -3,3 +3,18 @@
 #    url: jdbc:postgresql://db.kcbuhcsimxedaciaqmcm.supabase.co:5432/postgres
 #    username: postgres
 #    password: b9gpkGh64dGKU2v8
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+    format_sql: true
+    highlight_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: trace

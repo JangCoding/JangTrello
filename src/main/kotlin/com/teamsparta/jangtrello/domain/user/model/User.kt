@@ -16,7 +16,8 @@ class User(
     @Column(name = "name")
     val name:String,
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     val cardLists: MutableList<CardList> = mutableListOf()
 
 ) {

@@ -11,15 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 interface UserService {
-    fun signUp(
-        @RequestBody request: SignUpRequest
-    ): UserResponse
+    fun signUp(request: SignUpRequest): UserResponse
 
-    fun logIn(
-        @RequestBody request: LogInRequest
-    ): UserResponse
-    fun updateUser(
-        @RequestBody request: UpdateUserRequest,
-        @PathVariable userId:Long
+    fun logIn(request: LogInRequest): UserResponse
+    fun updateUser(request: UpdateUserRequest,
+        userId:Long
     ): UserResponse
 }

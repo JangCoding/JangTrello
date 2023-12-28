@@ -10,7 +10,9 @@ import com.teamsparta.jangtrello.domain.user.model.toResponse
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Service
 
+@Service
 class UserServiceImpl(
     private val userRepository: UserRepository
 ) : UserService {

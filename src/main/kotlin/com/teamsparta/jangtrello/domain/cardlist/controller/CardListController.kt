@@ -47,8 +47,7 @@ class CardListController(
 
     @DeleteMapping("/{cardListId}")
     fun deleteCardList(
-        @PathVariable cardListId: Long,
-        @RequestBody request: CreateCardListRequest
+        @PathVariable cardListId: Long
     ) : ResponseEntity<Unit>  {
         cardlistService.deleteCardList(cardListId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
