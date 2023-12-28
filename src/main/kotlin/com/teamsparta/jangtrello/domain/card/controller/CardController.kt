@@ -3,7 +3,7 @@ package com.teamsparta.jangtrello.domain.card.controller
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
 import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
-import com.teamsparta.jangtrello.domain.card.service.CardService
+import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/cardList/{cardListId}/cards")
 class CardController(
-    private val cardService : CardService
+    private val cardListService: CardListService
 ) {
     @GetMapping()
     fun getCards(
         @PathVariable cardListId : Long
     ):ResponseEntity<List<CardResponse>>{
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardService.getCards())
+        return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCards(cardListId))
     }
 
     @GetMapping("/{cardId}")
@@ -27,7 +27,7 @@ class CardController(
         @PathVariable cardId : Long
     ): ResponseEntity<CardResponse>{
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardService.getCardById(cardId))
+        return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCard(cardListId, cardId))
     }
 
     @PostMapping()
@@ -36,7 +36,7 @@ class CardController(
         @RequestBody request : CreateCardRequest
     ): ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(request))
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.createCard(cardListId, request))
     }
     @PutMapping("/{cardId}")
     fun updateCard(
@@ -45,7 +45,7 @@ class CardController(
         @RequestBody request : UpdateCardRequest
     ) : ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.updateCard(cardListId, request))
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.updateCard(cardListId, cardId, request))
     }
 
     @DeleteMapping("/{cardId}")
@@ -55,7 +55,7 @@ class CardController(
         @RequestBody request : CreateCardRequest
     ) : ResponseEntity<Unit>{
 
-        cardService.deleteCard(cardListId)
+        cardListService.deleteCard(cardListId, cardId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 

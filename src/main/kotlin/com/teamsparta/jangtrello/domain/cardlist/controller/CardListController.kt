@@ -27,7 +27,7 @@ class CardListController(
     fun getCardList(
         @PathVariable cardListId: Long
     ): ResponseEntity<CardListResponse> {
-        return ResponseEntity.status(HttpStatus.OK).body(cardlistService.getCardListById(cardListId))
+        return ResponseEntity.status(HttpStatus.OK).body(cardlistService.getCardList(cardListId))
     }
 
     @PostMapping()
