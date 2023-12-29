@@ -13,6 +13,7 @@ import com.teamsparta.jangtrello.domain.cardlist.dto.CreateCardListRequest
 import com.teamsparta.jangtrello.domain.cardlist.dto.UpdateCardListRequest
 import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
+import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.cardlist.repository.CardListRepository
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
