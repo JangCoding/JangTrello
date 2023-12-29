@@ -14,7 +14,7 @@ class Card(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    var status: CardStatus = CardStatus.TODO,
+    var status: CardStatus = CardStatus.FALSE,
 
     @Column(name = "contents")
     var contents: String,
