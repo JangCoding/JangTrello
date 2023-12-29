@@ -99,8 +99,8 @@ class CardListServiceImpl(
 
         card.title = request.title
         card.status = when(request.status){
-            "TODO" -> CardStatus.TODO
-            "FINISHED" -> CardStatus.FINISHED
+            "FALSE" -> CardStatus.FALSE
+            "TRUE" -> CardStatus.TRUE
             else -> throw IllegalStateException("Invalid role")
         }
         card.contents = request.contents
