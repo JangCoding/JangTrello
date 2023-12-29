@@ -23,11 +23,11 @@ class CardList(
     @Column(name = "username")
     var userName : String,
 
+    //1:N 관계에서 FK(course_id) 를 들고 있기 때문에 연관관계의 주인.
     //carmelCase 를 따라가기 때문에 클래스명 CardList 를 cardList 로 지정해주어야함!!
     @OneToMany(mappedBy = "cardList", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var cards: MutableList<Card> = mutableListOf(),
 
-//    @ManyToOne(fetch = FetchType.LAZY)  // 1:N 관계에서 FK(course_id) 를 들고 있기 때문에 연관관계의 주인이 됨? // 주인 쪽에 mappedBy
 //    @JoinColumn(name = "user_id") // MappedBy 할 때 알아서 추적하지만 명시적으로 표현
 //    val user: User
 
