@@ -27,7 +27,7 @@ class CardController(
         @PathVariable cardId : Long
     ): ResponseEntity<CardResponse>{
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCard(cardListId, cardId))
+        return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCard(cardId)) //cardListId,
     }
 
     @PostMapping()
@@ -45,7 +45,7 @@ class CardController(
         @RequestBody request : UpdateCardRequest
     ) : ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.updateCard(cardListId, cardId, request))
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.updateCard(cardId, request))
     }
 
     @DeleteMapping("/{cardId}")

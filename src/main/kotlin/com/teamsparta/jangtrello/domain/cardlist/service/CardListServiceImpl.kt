@@ -72,7 +72,7 @@ class CardListServiceImpl(
         return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }.sortedBy { it.status }
     }
 
-    override fun getCard(cardListId: Long, cardId: Long): CardResponse {
+    override fun getCard(cardId: Long): CardResponse { //cardListId: Long,
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
         return card.toResponse()
     }
@@ -94,7 +94,7 @@ class CardListServiceImpl(
         return card.toResponse()
     }
 
-    override fun updateCard(cardListId: Long, cardId: Long, request: UpdateCardRequest): CardResponse {
+    override fun updateCard(cardId: Long, request: UpdateCardRequest): CardResponse {
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
 
         card.title = request.title

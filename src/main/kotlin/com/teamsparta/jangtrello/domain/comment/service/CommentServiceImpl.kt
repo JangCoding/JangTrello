@@ -24,7 +24,7 @@ class CommentServiceImpl(
         return commentRepository.findAll().map { it.toResponse() }
     }
 
-    override fun getComment(cardId:Long, commentId : Long): CommentResponse {
+    override fun getComment(commentId : Long): CommentResponse {
         val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
         return comment.toResponse()
     }

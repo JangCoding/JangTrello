@@ -20,11 +20,11 @@ interface CardListService {
 
     fun getCards(cardListId: Long) : List<CardResponse>
 
-    fun getCard(cardListId: Long, cardId : Long) : CardResponse
+    fun getCard(cardId : Long) : CardResponse //cardListId: Long,
 
     fun createCard(cardListId: Long, request : CreateCardRequest) : CardResponse
 
-    fun updateCard(cardListId: Long, cardId : Long, request: UpdateCardRequest) : CardResponse
+    fun updateCard(cardId : Long, request: UpdateCardRequest) : CardResponse
 
     fun deleteCard(cardListId: Long, cardId : Long)
 }

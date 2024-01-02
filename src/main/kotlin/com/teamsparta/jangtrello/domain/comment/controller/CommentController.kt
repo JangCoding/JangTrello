@@ -24,7 +24,7 @@ class CommentController(
     fun getComment( @PathVariable cardListId : Long, @PathVariable cardId : Long, @PathVariable commentId: Long
     ): ResponseEntity<CommentResponse>
     {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(cardId, commentId))
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId))
     }
 
     @PostMapping()
