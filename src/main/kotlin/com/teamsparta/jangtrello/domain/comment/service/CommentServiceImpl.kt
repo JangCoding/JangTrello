@@ -20,8 +20,8 @@ class CommentServiceImpl(
     private val cardRepository: CardRepository,
     private val commentRepository: CommentRepository,
 ) : CommentService {
-    override fun getComments(): List<CommentResponse> {
-        return commentRepository.findAll().map { it.toResponse() }
+    override fun getComments(cardId:Long): List<CommentResponse> {
+        return commentRepository.findAllByCardId(cardId).map { it.toResponse() }
     }
 
     override fun getComment(commentId : Long): CommentResponse {

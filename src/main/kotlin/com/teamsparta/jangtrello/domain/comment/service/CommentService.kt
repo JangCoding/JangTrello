@@ -5,7 +5,7 @@ import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 
 interface CommentService {
-    fun getComments() : List<CommentResponse>
+    fun getComments(cardId: Long) : List<CommentResponse>
 
     fun getComment(commentId:Long) : CommentResponse
 
