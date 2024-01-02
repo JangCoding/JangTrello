@@ -2,10 +2,13 @@ package com.teamsparta.jangtrello.domain.card.model
 
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.CardList
+import com.teamsparta.jangtrello.domain.comment.model.Comment
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.*
 import java.time.LocalDateTime
+
+
 @Entity
 @Table(name = "card")
 class Card(
@@ -29,7 +32,10 @@ class Card(
     @ManyToOne(fetch = FetchType.LAZY) // 주인 아닌 쪽에 mappedBy
     @JoinColumn(name = "cardlist_id") // MappedBy 할 때 알아서 추적하지만 명시적으로 표현
     //table 의 column 따라
-    val cardList: CardList
+    val cardList: CardList,
+
+    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    var comments: MutableList<Comment> = mutableListOf(),
 
     ) {
     @Id
