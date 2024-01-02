@@ -27,7 +27,7 @@ class CommentServiceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun updateComment(request: UpdateCommentRequest): CommentResponse {
+    override fun updateComment(commentId : Long, request: UpdateCommentRequest): CommentResponse {
         TODO("Not yet implemented")
     }
 
