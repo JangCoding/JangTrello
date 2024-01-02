@@ -2,6 +2,7 @@ package com.teamsparta.jangtrello.domain.comment.service
 
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
+import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 
 interface CommentService {
@@ -13,6 +14,6 @@ interface CommentService {
 
     fun updateComment(commentId:Long, request: UpdateCommentRequest ) : CommentResponse
 
-    fun deleteComment(cardId: Long, commentId : Long)
+    fun deleteComment(cardId: Long, commentId : Long, request:DeleteCommentRequest)
 
 }

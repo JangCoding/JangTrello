@@ -1,4 +1,4 @@
-package com.example.courseregistration.domain.exception
+package com.teamsparta.jangtrello.domain.exception
 
 import com.example.courseregistration.domain.exception.dto.ErrorResponse
 import org.springframework.http.HttpStatus
@@ -19,11 +19,16 @@ class GlobalExceptionHandler {    // 전역적으로 예외 처리.
     // 다른 예외가 발생할 때 마다 아래 추가
                      // 기본 에러 메세지 중 1
     @ExceptionHandler(IllegalStateException::class)
-    fun handleIllegalStateException(
-        e:IllegalStateException
-    ):ResponseEntity<ErrorResponse> {
+    fun handleIllegalStateException(e:IllegalStateException):ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.CONFLICT)
             .body(ErrorResponse(e.message))
+    }
+
+    @ExceptionHandler(InvalidCredentialsException::class)
+    fun handleInvalidCredentialsException(e:InvalidCredentialsException) : ResponseEntity<ErrorResponse>{
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse(message = e.message)) // 예외 메세지 그대로 전달
     }
 }

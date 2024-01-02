@@ -1,9 +1,13 @@
 package com.teamsparta.jangtrello.domain.comment.controller
 
+import com.example.courseregistration.domain.exception.dto.ErrorResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
+import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.service.CommentService
+import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
+import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -46,10 +50,16 @@ class CommentController(
 
     @DeleteMapping("/{commentId}")
     fun deleteComment(
-        @PathVariable cardListId : Long, @PathVariable cardId : Long, @PathVariable commentId : Long
+        @PathVariable cardListId : Long, @PathVariable cardId : Long, @PathVariable commentId : Long,
+        @RequestBody request:DeleteCommentRequest
     ) : ResponseEntity<Unit> {
-        commentService.deleteComment(cardId,commentId)
+        commentService.deleteComment(cardId,commentId, request)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @ExceptionHandler(ModelNotFoundException::class)
+    fun handleInvalidCredentialsException(e: InvalidCredentialsException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ErrorResponse(e.message))
     }
 
 }

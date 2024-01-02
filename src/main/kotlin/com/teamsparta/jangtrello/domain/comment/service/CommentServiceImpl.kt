@@ -1,6 +1,5 @@
 package com.teamsparta.jangtrello.domain.comment.service
 
-import com.example.courseregistration.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.card.model.Card
 import com.teamsparta.jangtrello.domain.card.model.CardStatus
 import com.teamsparta.jangtrello.domain.card.model.toResponse
@@ -9,9 +8,12 @@ import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
 import com.teamsparta.jangtrello.domain.cardlist.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
+import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import com.teamsparta.jangtrello.domain.comment.model.toResponse
+import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
+import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -45,7 +47,8 @@ class CommentServiceImpl(
     }
 
     override fun updateComment(commentId : Long, request: UpdateCommentRequest): CommentResponse {
-        val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
+        // 이름/비번 체크기능 추가 필요
+       val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
 
         comment.userName = request.userName
         comment.password = request.password
@@ -54,10 +57,19 @@ class CommentServiceImpl(
         return commentRepository.save(comment).toResponse()
     }
 
-    override fun deleteComment(cardId: Long, commentId: Long) {
+    override fun deleteComment(cardId: Long, commentId: Long, request: DeleteCommentRequest) {
+                                                                            //InvalidCredentialsException
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
-        var comment = commentRepository.findByIdOrNull((commentId)) ?: throw ModelNotFoundException("Comment", commentId)
-        card.removeCard(comment)
-        cardRepository.save(card)
+        val comment = commentRepository.findByIdOrNull((commentId)) ?: throw ModelNotFoundException("Comment", commentId)
+
+        if (request.userName != comment.userName) {
+            throw InvalidCredentialsException("UserName", request.userName)
+        } else if (request.password != comment.password) {
+            throw InvalidCredentialsException("Password", request.userName)
+        } else {
+            // 예외가 발생하지 않은 경우에만 실행
+            card.removeCard(comment)
+            cardRepository.save(card)
+        }
     }
 }

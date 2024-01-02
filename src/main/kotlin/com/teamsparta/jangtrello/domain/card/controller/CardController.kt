@@ -1,9 +1,11 @@
 package com.teamsparta.jangtrello.domain.card.controller
 
+import com.example.courseregistration.domain.exception.dto.ErrorResponse
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
 import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
 import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
+import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -57,5 +59,8 @@ class CardController(
         cardListService.deleteCard(cardListId, cardId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
-
+    @ExceptionHandler(ModelNotFoundException::class)
+    fun handleInput(e: ModelNotFoundException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse(e.message))
+    }
 }

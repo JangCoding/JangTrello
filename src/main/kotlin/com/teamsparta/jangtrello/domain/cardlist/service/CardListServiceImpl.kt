@@ -1,6 +1,5 @@
 package com.teamsparta.jangtrello.domain.cardlist.service
 
-import com.example.courseregistration.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
 import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
@@ -15,6 +14,7 @@ import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.cardlist.repository.CardListRepository
+import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

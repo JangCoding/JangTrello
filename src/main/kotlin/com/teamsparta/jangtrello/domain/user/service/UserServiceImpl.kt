@@ -1,6 +1,6 @@
 package com.teamsparta.jangtrello.domain.user.service
 
-import com.example.courseregistration.domain.exception.ModelNotFoundException
+import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.dto.LogInRequest
 import com.teamsparta.jangtrello.domain.user.dto.SignUpRequest
 import com.teamsparta.jangtrello.domain.user.dto.UpdateUserRequest
