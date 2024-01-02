@@ -2,6 +2,7 @@ package com.teamsparta.jangtrello.domain.card.model
 
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.CardList
+import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -41,6 +42,14 @@ class Card(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    fun addComment(comment: Comment) {
+        comments.add(comment)
+    }
+
+    fun removeCard(comment: Comment) {
+        comments.remove(comment)
+    }
 }
 fun Card.toResponse(): CardResponse {
     return CardResponse(

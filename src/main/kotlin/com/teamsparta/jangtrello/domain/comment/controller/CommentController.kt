@@ -1,31 +1,30 @@
 package com.teamsparta.jangtrello.domain.comment.controller
 
-import com.teamsparta.jangtrello.domain.card.dto.CardResponse
-import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
-import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
+import com.teamsparta.jangtrello.domain.comment.service.CommentService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import javax.xml.stream.events.Comment
+
 
 @RestController
 @RequestMapping("/cardList/{cardListId}/cards/{cardId}/comments")
-class CommentController {
+class CommentController(
+    private val commentService: CommentService // @Service 안하면 못찾음
+) {
     @GetMapping()
     fun getComments( @PathVariable cardListId : Long, @PathVariable cardId : Long
     ): ResponseEntity<List<CommentResponse>> {
-
-        TODO()
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComments())
     }
 
     @GetMapping("/{commentId}")
-    fun getComment( @PathVariable cardListId : Long, @PathVariable cardId : Long
+    fun getComment( @PathVariable cardListId : Long, @PathVariable cardId : Long, @PathVariable commentId: Long
     ): ResponseEntity<CommentResponse>
     {
-        TODO()
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(cardId, commentId))
     }
 
     @PostMapping()
@@ -45,7 +44,7 @@ class CommentController {
         TODO()
     }
 
-    @PutMapping("/{commentId}")
+    @DeleteMapping("/{commentId}")
     fun deleteCard(
         @PathVariable cardListId : Long, @PathVariable cardId : Long, @PathVariable commentId : Long
     ) : ResponseEntity<Unit> {
