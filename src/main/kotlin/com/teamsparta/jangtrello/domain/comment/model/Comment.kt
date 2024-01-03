@@ -1,5 +1,6 @@
 package com.teamsparta.jangtrello.domain.comment.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.teamsparta.jangtrello.domain.card.model.Card
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import jakarta.persistence.*
@@ -11,6 +12,7 @@ class Comment(
     @Column(name = "username")
     var userName : String,
 
+    @JsonIgnore
     @Column(name = "password")
     var password : String,
 
@@ -21,10 +23,11 @@ class Comment(
     val date: String = LocalDateTime.now().toString(),
 
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) // 주인 아닌 쪽에 mappedBy
     @JoinColumn(name = "card_id") // MappedBy 할 때 알아서 추적하지만 명시적으로 표현
     //table 의 column 따라
-    private val card: Card
+    val card: Card
 
     ) {
     @Id

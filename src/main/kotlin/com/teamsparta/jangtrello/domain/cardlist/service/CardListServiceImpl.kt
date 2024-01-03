@@ -16,6 +16,7 @@ import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.cardlist.repository.CardListRepository
 import com.teamsparta.jangtrello.domain.cardlist.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.comment.model.toResponse
+import com.teamsparta.jangtrello.domain.exception.InvalidInputException
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -75,13 +76,16 @@ class CardListServiceImpl(
         return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }.sortedBy { it.status }
     }
 
-    override fun getCardsSorted(cardListId: Long, sortBy : String) : List<CardResponse>
-    {
+    override fun getCardsSorted(cardListId: Long, sortBy : String) : List<CardResponse>    {
         when (sortBy.uppercase()){
             "ASC" ->return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedBy { it.date }
             "DESC"-> return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }
             else -> throw IllegalArgumentException("Invalid sortBy value: $sortBy. Should be 'ASC' or 'DESC'.")
         }
+    }
+
+    override fun getCardsUserNamed(cardListId: Long, userName : String) : List<CardResponse>    {
+        return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }.sortedBy { it.status }.filter{it.userName == userName }
     }
 
     override fun getCard(cardId: Long): CardResponse { //cardListId: Long,
@@ -91,19 +95,24 @@ class CardListServiceImpl(
 
     override fun createCard(cardListId: Long, request: CreateCardRequest): CardResponse {
         val cardList = cardListRepository.findByIdOrNull(cardListId) ?: throw ModelNotFoundException("CardLIst", cardListId)
-        val card = Card(
-        title = request.title,
-        contents = request.contents,
-        username = request.userName,
-        //status 는 생성시 TODO
-        //date 는 자동 생성
-        cardList = cardList
-        )
 
-        cardList.addCard(card)
+        if(chkInputValidation(request.title, request.contents)) {
+            val card = Card(
+                title = request.title,
+                contents = request.contents,
+                username = request.userName,
+                //status 는 생성시 TODO
+                //date 는 자동 생성
+                cardList = cardList
+            )
 
-        cardListRepository.save(cardList)
-        return card.toResponse()
+            cardList.addCard(card)
+
+            cardListRepository.save(cardList)
+            return card.toResponse()
+        }
+        else
+            throw InvalidInputException(request.title.length.toLong(), request.contents.length.toLong())
     }
 
     override fun updateCard(cardId: Long, request: UpdateCardRequest): CardResponse {
@@ -130,4 +139,11 @@ class CardListServiceImpl(
 
         cardListRepository.save(cardList)
     }
+}
+
+fun chkInputValidation(title:String, contents : String) : Boolean{
+    if(title.length in 1..200 && contents.length in 1..1000)
+        return true
+    else
+        return false
 }

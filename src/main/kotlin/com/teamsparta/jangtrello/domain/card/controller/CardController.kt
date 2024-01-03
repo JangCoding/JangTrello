@@ -32,6 +32,15 @@ class CardController(
         return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCardsSorted(cardListId, sortBy))
     }
 
+    @GetMapping("usernamed/{userName}")
+    fun getCardsUserNamed(
+        @PathVariable cardListId : Long,
+        @PathVariable userName : String,
+    ):ResponseEntity<List<CardResponse>>{
+
+        return ResponseEntity.status(HttpStatus.OK).body(cardListService.getCardsUserNamed(cardListId, userName))
+    }
+
     @GetMapping("/{cardId}")
     fun getCard(
         @PathVariable cardListId : Long,

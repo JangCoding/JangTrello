@@ -36,7 +36,7 @@ class Card(
     //table 의 column 따라
     val cardList: CardList,
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //, orphanRemoval = true
     var comments: MutableList<Comment> = mutableListOf(),
 
     //var cmts:MutableList<CommentResponse> = mutableListOf(),
