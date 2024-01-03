@@ -52,7 +52,7 @@ class Card(
         comments.add(comment)
     }
 
-    fun removeCard(comment: Comment) {
+    fun removeComment(comment: Comment) {
         comments.remove(comment)
     }
 }

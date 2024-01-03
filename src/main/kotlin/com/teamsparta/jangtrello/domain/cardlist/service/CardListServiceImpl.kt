@@ -77,12 +77,6 @@ class CardListServiceImpl(
 
     override fun getCard(cardId: Long): CardResponse { //cardListId: Long,
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
-//        card.comments = commentRepository.findAllByCardId(cardId).map{it.toResponse()}
-//        println("--------------------------------------------------------------------------")
-//        card.comments.forEach{e ->
-//            println(e.card)
-//        }
-//        println("--------------------------------------------------------------------------")
         return card.toResponse()
     }
 

@@ -73,7 +73,7 @@ class CommentServiceImpl(
             throw InvalidCredentialsException("Password", request.userName)
         } else {
             // 예외가 발생하지 않은 경우에만 실행
-            card.removeCard(comment)
+            card.removeComment(comment)
             cardRepository.save(card)
         }
     }
