@@ -22,11 +22,11 @@ class CommentServiceImpl(
     private val cardRepository: CardRepository,
     private val commentRepository: CommentRepository,
 ) : CommentService {
-    override fun getComments(cardId:Long): List<CommentResponse> {
+    override fun getComments(cardId: Long): List<CommentResponse> {
         return commentRepository.findAllByCardId(cardId).map { it.toResponse() }
     }
 
-    override fun getComment(commentId : Long): CommentResponse {
+    override fun getComment(commentId: Long): CommentResponse {
         val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
         return comment.toResponse()
     }
@@ -46,21 +46,26 @@ class CommentServiceImpl(
         return comment.toResponse()
     }
 
-    override fun updateComment(commentId : Long, request: UpdateCommentRequest): CommentResponse {
+    override fun updateComment(commentId: Long, request: UpdateCommentRequest): CommentResponse {
         // 이름/비번 체크기능 추가 필요
-       val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
-
-        comment.userName = request.userName
-        comment.password = request.password
-        comment.contents = request.contents
-
+        val comment = commentRepository.findByIdOrNull(commentId) ?: throw ModelNotFoundException("Comment", commentId)
+        if (request.userName != comment.userName) {
+            throw InvalidCredentialsException("UserName", request.userName)
+        } else if (request.password != comment.password) {
+            throw InvalidCredentialsException("Password", request.userName)
+        } else {
+            comment.userName = request.userName
+            comment.password = request.password
+            comment.contents = request.contents
+        }
         return commentRepository.save(comment).toResponse()
     }
 
     override fun deleteComment(cardId: Long, commentId: Long, request: DeleteCommentRequest) {
-                                                                            //InvalidCredentialsException
+        //InvalidCredentialsException
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
-        val comment = commentRepository.findByIdOrNull((commentId)) ?: throw ModelNotFoundException("Comment", commentId)
+        val comment =
+            commentRepository.findByIdOrNull((commentId)) ?: throw ModelNotFoundException("Comment", commentId)
 
         if (request.userName != comment.userName) {
             throw InvalidCredentialsException("UserName", request.userName)

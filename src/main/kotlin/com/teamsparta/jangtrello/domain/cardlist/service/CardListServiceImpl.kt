@@ -14,6 +14,7 @@ import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.cardlist.repository.CardListRepository
+import com.teamsparta.jangtrello.domain.comment.model.Comment
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -115,6 +116,7 @@ class CardListServiceImpl(
 
         cardList.removeCard(card)
 
+        1
         cardListRepository.save(cardList)
     }
 }
