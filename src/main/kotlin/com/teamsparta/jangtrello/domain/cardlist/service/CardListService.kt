@@ -20,8 +20,8 @@ interface CardListService {
 
     fun getCards(cardListId: Long) : List<CardResponse>
 
+    fun getCardsSorted(cardListId: Long, sortBy : String) : List<CardResponse>
     fun getCard(cardId : Long) : CardResponse //cardListId: Long,
-
     fun createCard(cardListId: Long, request : CreateCardRequest) : CardResponse
 
     fun updateCard(cardId : Long, request: UpdateCardRequest) : CardResponse

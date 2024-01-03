@@ -75,6 +75,15 @@ class CardListServiceImpl(
         return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }.sortedBy { it.status }
     }
 
+    override fun getCardsSorted(cardListId: Long, sortBy : String) : List<CardResponse>
+    {
+        when (sortBy.uppercase()){
+            "ASC" ->return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedBy { it.date }
+            "DESC"-> return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }
+            else -> throw IllegalArgumentException("Invalid sortBy value: $sortBy. Should be 'ASC' or 'DESC'.")
+        }
+    }
+
     override fun getCard(cardId: Long): CardResponse { //cardListId: Long,
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
         return card.toResponse()
