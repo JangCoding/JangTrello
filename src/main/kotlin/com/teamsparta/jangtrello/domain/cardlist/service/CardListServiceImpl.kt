@@ -14,7 +14,8 @@ import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
 import com.teamsparta.jangtrello.domain.cardlist.repository.CardListRepository
-import com.teamsparta.jangtrello.domain.comment.model.Comment
+import com.teamsparta.jangtrello.domain.cardlist.repository.CommentRepository
+import com.teamsparta.jangtrello.domain.comment.model.toResponse
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -27,6 +28,7 @@ import java.time.LocalDateTime
 class CardListServiceImpl(
     private val cardListRepository: CardListRepository,
     private val cardRepository: CardRepository,
+    private val commentRepository: CommentRepository,
     private val userRepository: UserRepository,
 ) : CardListService{
     override fun getCardLists(): List<CardListResponse> {
@@ -75,6 +77,12 @@ class CardListServiceImpl(
 
     override fun getCard(cardId: Long): CardResponse { //cardListId: Long,
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
+//        card.comments = commentRepository.findAllByCardId(cardId).map{it.toResponse()}
+//        println("--------------------------------------------------------------------------")
+//        card.comments.forEach{e ->
+//            println(e.card)
+//        }
+//        println("--------------------------------------------------------------------------")
         return card.toResponse()
     }
 
@@ -97,6 +105,7 @@ class CardListServiceImpl(
 
     override fun updateCard(cardId: Long, request: UpdateCardRequest): CardResponse {
         val card = cardRepository.findByIdOrNull(cardId) ?: throw ModelNotFoundException("Card", cardId)
+        card.comments = commentRepository.findAllByCardId(cardId).toMutableList()
 
         card.title = request.title
         card.status = when(request.status){
@@ -116,7 +125,6 @@ class CardListServiceImpl(
 
         cardList.removeCard(card)
 
-        1
         cardListRepository.save(cardList)
     }
 }

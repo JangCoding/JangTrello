@@ -1,8 +1,6 @@
 package com.teamsparta.jangtrello.domain.comment.model
 
 import com.teamsparta.jangtrello.domain.card.model.Card
-import com.teamsparta.jangtrello.domain.cardlist.dto.CardListResponse
-import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -22,10 +20,11 @@ class Comment(
     @Column(name = "date")
     val date: String = LocalDateTime.now().toString(),
 
+
     @ManyToOne(fetch = FetchType.LAZY) // 주인 아닌 쪽에 mappedBy
     @JoinColumn(name = "card_id") // MappedBy 할 때 알아서 추적하지만 명시적으로 표현
     //table 의 column 따라
-    val card: Card
+    private val card: Card
 
     ) {
     @Id

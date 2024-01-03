@@ -3,6 +3,7 @@ package com.teamsparta.jangtrello.domain.card.model
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.cardlist.model.CardList
 import com.teamsparta.jangtrello.domain.cardlist.model.updateCount
+import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -38,10 +39,14 @@ class Card(
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var comments: MutableList<Comment> = mutableListOf(),
 
+    //var cmts:MutableList<CommentResponse> = mutableListOf(),
+
     ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+
 
     fun addComment(comment: Comment) {
         comments.add(comment)
