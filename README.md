@@ -63,7 +63,7 @@
 
 ## REST API
 <p align="center">
-  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/3462d1d5-6b86-4bf8-bcf0-158b4e9bdfcc">
+  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/237ed777-4fb2-4b3c-8aa7-3e96e53bb2b3">
 </p>
 
 ## STACKS
