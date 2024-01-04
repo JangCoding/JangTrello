@@ -1,6 +1,6 @@
 package com.teamsparta.jangtrello.domain.user.dto
 
 data class LogInRequest(
-    val id:Long,
+    val userName :Long,
     var pw:String,
 )

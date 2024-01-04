@@ -120,7 +120,7 @@ class CardListServiceImpl(
         card.comments = commentRepository.findAllByCardId(cardId).toMutableList()
 
         card.title = request.title
-        card.status = when(request.status){
+        card.status = when(request.status.uppercase()){
             "FALSE" -> CardStatus.FALSE
             "TRUE" -> CardStatus.TRUE
             else -> throw IllegalStateException("Invalid role")

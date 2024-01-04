@@ -42,7 +42,7 @@ class CardListController(
         @PathVariable cardListId: Long,
         @RequestBody request: UpdateCardListRequest
     ): ResponseEntity<CardListResponse> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardlistService.updateCardList(cardListId, request))
+        return ResponseEntity.status(HttpStatus.OK).body(cardlistService.updateCardList(cardListId, request))
     }
 
     @DeleteMapping("/{cardListId}")

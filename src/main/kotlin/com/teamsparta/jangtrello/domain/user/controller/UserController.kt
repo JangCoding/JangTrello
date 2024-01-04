@@ -23,12 +23,12 @@ class UserController(
     fun logIn(@RequestBody request: LogInRequest): ResponseEntity<UserResponse> {
         TODO()
     }
-    @PutMapping("/users/{userId}/profile")
+    @PutMapping("/users/{userName}/profile")
     fun updateUser(
         @RequestBody request: UpdateUserRequest,
-        @PathVariable userId:Long
+        @PathVariable userName:Long
     ): ResponseEntity<UserResponse> {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(userService.updateUser(request, userId))
+            .body(userService.updateUser(request, userName))
     }
 }

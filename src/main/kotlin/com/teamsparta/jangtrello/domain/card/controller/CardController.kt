@@ -65,7 +65,7 @@ class CardController(
         @RequestBody request : UpdateCardRequest
     ) : ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.updateCard(cardId, request))
+        return ResponseEntity.status(HttpStatus.OK).body(cardListService.updateCard(cardId, request))
     }
 
     @DeleteMapping("/{cardId}")

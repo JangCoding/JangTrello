@@ -45,7 +45,7 @@ class CommentController(
         @RequestBody request : UpdateCommentRequest
     ) : ResponseEntity<CommentResponse> {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.updateComment(commentId, request))
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.updateComment(commentId, request))
     }
 
     @DeleteMapping("/{commentId}")
