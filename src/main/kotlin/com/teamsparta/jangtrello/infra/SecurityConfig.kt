@@ -28,8 +28,8 @@ class SecurityConfig(
             // 요청에 대한 인가 규칙 정의
             .authorizeHttpRequests{
                 it.requestMatchers( // 특정 경로 설정 지정
-                    "/login",
-                    "/signup",
+                    "/logIn",
+                    "/signUp",
                     "/swagger-ui/**", // swagger페이지
                     "v3/api-docs/**", // 내용 docs
                 ).permitAll() // 위 URL은 승인처리

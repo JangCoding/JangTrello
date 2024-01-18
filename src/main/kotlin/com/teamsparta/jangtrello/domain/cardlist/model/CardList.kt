@@ -28,6 +28,7 @@ class CardList(
     @OneToMany(mappedBy = "cardList", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
     var cards: MutableList<Card> = mutableListOf(),
 
+//    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id") // MappedBy 할 때 알아서 추적하지만 명시적으로 표현
 //    val user: User
 

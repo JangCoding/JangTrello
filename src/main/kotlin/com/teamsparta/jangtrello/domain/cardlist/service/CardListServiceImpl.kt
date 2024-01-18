@@ -49,7 +49,7 @@ class CardListServiceImpl(
             CardList(
                 title = request.title,
                 //date 는 자동 생성
-                userName = request.userName
+                userName = request.userName,
             )
         ).toResponse()
     }

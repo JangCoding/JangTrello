@@ -29,7 +29,7 @@ class UserServiceImpl(
             User(
                 email = request.email,
                 // TODO: 비밀번호 암호화
-                password = request.password,
+                password = passwordEncoder.encode( request.password) , // BCryptPasswordEncoder().encode()
                 nickName = request.nickName,
                 role = when(request.role.uppercase()){
                     "USER" -> UserRole.USER

@@ -5,7 +5,7 @@ import com.teamsparta.jangtrello.domain.user.dto.UserResponse
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "user")
 class User(
     @Column(name = "password")
     var password : String,
