@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.infra
+package com.teamsparta.jangtrello.infra
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

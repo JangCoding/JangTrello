@@ -2,7 +2,7 @@ package com.teamsparta.jangtrello.domain.user.service
 
 import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
-import com.teamsparta.jangtrello.domain.infra.security.JwtPlugin
+import com.teamsparta.jangtrello.infra.security.JwtPlugin
 import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.model.User
 import com.teamsparta.jangtrello.domain.user.model.UserRole

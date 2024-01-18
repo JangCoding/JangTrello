@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.infra.security
+package com.teamsparta.jangtrello.infra.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
