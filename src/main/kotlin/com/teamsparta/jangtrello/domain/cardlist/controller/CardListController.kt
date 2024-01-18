@@ -1,16 +1,14 @@
 package com.teamsparta.jangtrello.domain.cardlist.controller
 
-import com.example.courseregistration.domain.exception.dto.ErrorResponse
-import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.cardlist.dto.CardListResponse
 import com.teamsparta.jangtrello.domain.cardlist.dto.CreateCardListRequest
 import com.teamsparta.jangtrello.domain.cardlist.dto.UpdateCardListRequest
 import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
-import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
-
 
 @RestController
 @RequestMapping("/cardLists")
@@ -38,8 +36,10 @@ class CardListController(
     }
 
     @PutMapping("/{cardListId}")
+
     fun updateCardList(
         @PathVariable cardListId: Long,
+        @AuthenticationPrincipal userDetails: UserDetails,
         @RequestBody request: UpdateCardListRequest
     ): ResponseEntity<CardListResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(cardlistService.updateCardList(cardListId, request))
