@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.infra.security
+package com.teamsparta.jangtrello.infra.security.jwt
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws

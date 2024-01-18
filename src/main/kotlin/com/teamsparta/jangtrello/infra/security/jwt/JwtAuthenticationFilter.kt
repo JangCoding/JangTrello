@@ -1,6 +1,5 @@
 package com.teamsparta.jangtrello.infra.security.jwt
 
-import com.teamsparta.jangtrello.infra.security.JwtPlugin
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
