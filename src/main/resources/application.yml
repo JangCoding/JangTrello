@@ -2,7 +2,8 @@
 #  datasource:
 #    url: jdbc:postgresql://db.kcbuhcsimxedaciaqmcm.supabase.co:5432/postgres
 #    username: postgres
-#    password: b9gpkGh64dGKU2v8
+#    password: b9gpkG2904h64dGKU2v8
+# SPRING_DATASOURCE_URL=jdbc:postgresql://db.kcbuhcsimxedaciaqmcm.supabase.co:5432/postgres?user=postgres&password=b9gpk2904Gh64dGKU2v8
 
 spring:
   jpa:
@@ -14,6 +15,8 @@ spring:
 logging:
   level:
     org:
+      springframework:
+        security: debug
       hibernate:
         orm:
           jdbc:
