@@ -90,6 +90,12 @@ class CardService(
         val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
             ?: throw ModelNotFoundException("Card", cardId)
 
+        val user = userRepository.findById(userPrincipal.id).orElse(null)
+            ?: throw IllegalStateException("User not found with id: ${userPrincipal.id}")
+
+        if (!passwordEncoder.matches(request.password, user.password))
+            throw InvalidCredentialsException("Password", request.password)
+
         cardRepository.delete(card)
     }
 }

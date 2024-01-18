@@ -1,11 +1,9 @@
 package com.teamsparta.jangtrello.domain.cardlist.controller
 
 import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 
-@RestController
-@RequestMapping("/cardLists")
+//@RestController
+//@RequestMapping("/cardLists")
 class CardListController(
     private val cardlistService : CardListService
 ) {

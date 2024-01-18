@@ -19,7 +19,6 @@ class CardController(
 ) {
     @GetMapping()
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
-
     fun getCards(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
     ):ResponseEntity<List<CardResponse>>{
