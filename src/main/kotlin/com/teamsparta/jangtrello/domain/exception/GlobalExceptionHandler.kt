@@ -32,6 +32,14 @@ class GlobalExceptionHandler {    // 전역적으로 예외 처리.
             .body(ErrorResponse(message = e.message)) // 예외 메세지 그대로 전달
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgumentException(e: IllegalArgumentException) : ResponseEntity<ErrorResponse>
+    {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(e.message))
+    }
+
     @ExceptionHandler(InvalidInputException::class)
     fun handleInvalidInputException(e:InvalidInputException) : ResponseEntity<ErrorResponse>{
         return ResponseEntity

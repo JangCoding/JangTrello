@@ -1,6 +1,8 @@
 package com.teamsparta.jangtrello.domain.user.dto
 
+import jakarta.validation.constraints.Email
+
 data class LogInRequest(
-    val userName :Long,
-    var pw:String,
+    val email:String,
+    var password:String,
 )

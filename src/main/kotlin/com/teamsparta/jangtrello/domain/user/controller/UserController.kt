@@ -1,9 +1,6 @@
 package com.teamsparta.jangtrello.domain.user.controller
 
-import com.teamsparta.jangtrello.domain.user.dto.LogInRequest
-import com.teamsparta.jangtrello.domain.user.dto.SignUpRequest
-import com.teamsparta.jangtrello.domain.user.dto.UpdateUserRequest
-import com.teamsparta.jangtrello.domain.user.dto.UserResponse
+import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,20 +12,20 @@ class UserController(
 ) {
     @PostMapping("/signUp")
     fun signUp(@RequestBody request: SignUpRequest): ResponseEntity<UserResponse> {
-
         return ResponseEntity.status(HttpStatus.OK)
             .body(userService.signUp(request))
     }
     @PostMapping("/logIn")
-    fun logIn(@RequestBody request: LogInRequest): ResponseEntity<UserResponse> {
-        TODO()
+    fun logIn(@RequestBody request: LogInRequest): ResponseEntity<LoginResponse> {
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(userService.logIn(request))
     }
-    @PutMapping("/users/{userName}/profile")
+    @PutMapping("/users/{nickName}/profile")
     fun updateUser(
         @RequestBody request: UpdateUserRequest,
-        @PathVariable userName:Long
+        @PathVariable nickName:Long
     ): ResponseEntity<UserResponse> {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(userService.updateUser(request, userName))
+            .body(userService.updateUser(request, nickName))
     }
 }

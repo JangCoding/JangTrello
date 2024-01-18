@@ -8,6 +8,7 @@ import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -16,6 +17,7 @@ class CardController(
     private val cardListService: CardListService
 ) {
     @GetMapping()
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun getCards(
         @PathVariable cardListId : Long
     ):ResponseEntity<List<CardResponse>>{
@@ -24,6 +26,7 @@ class CardController(
     }
 
     @GetMapping("sorted/{sortBy}")
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun getCardsSorted(
         @PathVariable cardListId : Long,
         @PathVariable sortBy : String,
@@ -33,6 +36,7 @@ class CardController(
     }
 
     @GetMapping("usernamed/{userName}")
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun getCardsUserNamed(
         @PathVariable cardListId : Long,
         @PathVariable userName : String,
@@ -42,6 +46,7 @@ class CardController(
     }
 
     @GetMapping("/{cardId}")
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun getCard(
         @PathVariable cardListId : Long,
         @PathVariable cardId : Long
@@ -51,6 +56,7 @@ class CardController(
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun createCard(
         @PathVariable cardListId : Long,
         @RequestBody request : CreateCardRequest
@@ -59,6 +65,7 @@ class CardController(
         return ResponseEntity.status(HttpStatus.CREATED).body(cardListService.createCard(cardListId, request))
     }
     @PutMapping("/{cardId}")
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun updateCard(
         @PathVariable cardListId : Long,
         @PathVariable cardId : Long,
@@ -69,6 +76,7 @@ class CardController(
     }
 
     @DeleteMapping("/{cardId}")
+    @PreAuthorize("hasRole('USER') or hasRole('MANAGER')")
     fun deleteCard(
         @PathVariable cardListId : Long,
         @PathVariable cardId : Long,
@@ -77,8 +85,5 @@ class CardController(
         cardListService.deleteCard(cardListId, cardId)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
-    @ExceptionHandler(ModelNotFoundException::class)
-    fun handleInput(e: ModelNotFoundException): ResponseEntity<ErrorResponse> {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse(e.message))
-    }
+
 }

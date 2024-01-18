@@ -5,7 +5,7 @@ import com.teamsparta.jangtrello.domain.user.dto.UserResponse
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "user")
 class User(
     @Column(name = "password")
     var password : String,
@@ -13,8 +13,12 @@ class User(
     @Column(name = "email")
     var email:String,
 
-    @Column(name = "name")
-    val name:String,
+    @Column(name = "nickname")
+    val nickName:String,
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    val role:UserRole,
 
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -38,6 +42,7 @@ fun User.toResponse(): UserResponse {
     return UserResponse(
         id = id!!,
         email = email,
-        name = name,
+        nickName = nickName,
+        role = role.name
     )
 }
