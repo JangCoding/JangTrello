@@ -9,5 +9,5 @@ data class CardResponse(
     var title : String,
     var status : String,
     var contents : String,
-    var comments : MutableList<Comment>
+//    var comments : MutableList<Comment>
 )

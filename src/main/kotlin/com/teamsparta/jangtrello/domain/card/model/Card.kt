@@ -1,7 +1,6 @@
 package com.teamsparta.jangtrello.domain.card.model
 
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
-import com.teamsparta.jangtrello.domain.comment.model.Comment
 import com.teamsparta.jangtrello.domain.user.model.User
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -30,8 +29,8 @@ class Card(
     @JoinColumn(name = "user_id")
     val user: User,
 
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //, orphanRemoval = true
-    var comments: MutableList<Comment> = mutableListOf(),
+//    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //, orphanRemoval = true
+//    var comments: MutableList<Comment> = mutableListOf(),
 
     ) {
     @Id
@@ -39,14 +38,14 @@ class Card(
     var id: Long? = null
 
 
-
-    fun addComment(comment: Comment) {
-        comments.add(comment)
-    }
-
-    fun removeComment(comment: Comment) {
-        comments.remove(comment)
-    }
+//
+//    fun addComment(comment: Comment) {
+//        comments.add(comment)
+//    }
+//
+//    fun removeComment(comment: Comment) {
+//        comments.remove(comment)
+//    }
 }
 fun Card.toResponse(): CardResponse {
     return CardResponse(
@@ -56,6 +55,6 @@ fun Card.toResponse(): CardResponse {
         title = title,
         status = status.name,
         contents = contents,
-        comments = comments,
+//        comments = comments,
     )
 }

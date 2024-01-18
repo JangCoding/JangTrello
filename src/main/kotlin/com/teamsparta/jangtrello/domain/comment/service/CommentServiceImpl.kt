@@ -1,10 +1,6 @@
 package com.teamsparta.jangtrello.domain.comment.service
 
-import com.teamsparta.jangtrello.domain.card.model.Card
-import com.teamsparta.jangtrello.domain.card.model.CardStatus
-import com.teamsparta.jangtrello.domain.card.model.toResponse
 import com.teamsparta.jangtrello.domain.card.repository.CardRepository
-import com.teamsparta.jangtrello.domain.cardlist.model.toResponse
 import com.teamsparta.jangtrello.domain.cardlist.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
@@ -40,8 +36,6 @@ class CommentServiceImpl(
             card = card
         )
 
-        card.addComment(comment)
-
         commentRepository.save(comment)
         return comment.toResponse()
     }
@@ -73,8 +67,8 @@ class CommentServiceImpl(
             throw InvalidCredentialsException("Password", request.userName)
         } else {
             // 예외가 발생하지 않은 경우에만 실행
-            card.removeComment(comment)
-            cardRepository.save(card)
+            commentRepository.delete(comment)
+
         }
     }
 }
