@@ -2,12 +2,13 @@ package com.teamsparta.jangtrello.domain.user.service
 
 import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
-import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
 import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.model.User
 import com.teamsparta.jangtrello.domain.user.model.UserRole
 import com.teamsparta.jangtrello.domain.user.model.toResponse
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
+import com.teamsparta.jangtrello.infra.security.UserPrincipal
+import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -53,21 +54,24 @@ class UserServiceImpl(
             jwtPlugin.generateAccessToken(
                 subject = user.id.toString(),
                 email = user.email,
-                role = user.role.name
+                role = user.role.name,
+                nickname = user.nickName
             )
         )
     }
 
 
-    override fun updateUser(request: UpdateUserRequest, userId: Long): UserResponse {
-        // TODO: 만약 userId에 해당하는 User가 없다면 throw ModelNotFoundException
-        // TODO: DB에서 userId에 해당하는 User를 가져와서 updateUserProfileRequest로 업데이트 후 DB에 저장, 결과를 UserResponse로 변환 후 반환
-        var user = userRepository.findByIdOrNull(userId) ?: throw ModelNotFoundException("User", userId)
-        if (userRepository.existsByEmail(request.email)) {
-            throw IllegalStateException("Email is already in use")
+    override fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse {
+        val user = userRepository.findByIdOrNull(userPrincipal.id)
+            ?: throw ModelNotFoundException("User", userPrincipal.id)
+
+        if (!passwordEncoder.matches(request.password, user.password))
+            throw InvalidCredentialsException("Password", request.password)
+
+        if (userRepository.existsByNickName(request.nickname)) {
+            throw IllegalStateException("NickName is already in use")
         }
-        user.email = request.email
-        user.password = request.password
+        user.nickName = request.nickname
 
         return userRepository.save(user).toResponse()
     }

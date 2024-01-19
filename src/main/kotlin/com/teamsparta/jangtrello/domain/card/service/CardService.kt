@@ -53,6 +53,7 @@ class CardService(
         if (chkInputValidation(request.title, request.contents)) {
             val card = Card(
                 email = userPrincipal.email,
+                nickName = user.nickName,
                 title = request.title,
                 contents = request.contents,
                 user = user,
@@ -65,21 +66,22 @@ class CardService(
 
 
     fun updateCard(userPrincipal: UserPrincipal, cardId: Long, request: UpdateCardRequest): CardResponse {
+        val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
+            ?: throw ModelNotFoundException("Card", cardId)
+
         val user = userRepository.findById(userPrincipal.id).orElse(null)
             ?: throw IllegalStateException("User not found with id: ${userPrincipal.id}")
 
         if (!passwordEncoder.matches(request.password, user.password))
             throw InvalidCredentialsException("Password", request.password)
 
-        val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
-            ?: throw ModelNotFoundException("Card", cardId)
 
 
         card.title = request.title
         card.status = when (request.status.uppercase()) {
             "FALSE" -> CardStatus.FALSE
             "TRUE" -> CardStatus.TRUE
-            else -> throw IllegalStateException("Invalid role")
+            else -> throw IllegalStateException("Invalid Status")
         }
         card.contents = request.contents
 

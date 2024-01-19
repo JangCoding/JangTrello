@@ -27,9 +27,9 @@ class CommentService(
         userPrincipal: UserPrincipal,
         cardId: Long
     ): List<CommentResponse> {
-        println(commentRepository.findAllByUserIdAndCardId(userPrincipal.id, cardId).map { it.toResponse() }
-        )
-        return commentRepository.findAllByUserIdAndCardId(userPrincipal.id, cardId).map { it.toResponse() }
+        return commentRepository.findAllByUserIdAndCardId(userPrincipal.id, cardId)
+            ?.map { it.toResponse() }
+            ?: throw ModelNotFoundException("Comments", cardId)
     }
 
     fun getComment(
@@ -55,6 +55,7 @@ class CommentService(
             email = userPrincipal.email,
             contents = request.contents,
             user = user,
+            nickName = user.nickName,
             card = card,
         )
         commentRepository.save(comment)

@@ -13,7 +13,7 @@ class User(
     var email:String,
 
     @Column(name = "nickname")
-    val nickName:String,
+    var nickName:String,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
@@ -23,7 +23,6 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long? = null
-
 }
 
 fun User.toResponse(): UserResponse {

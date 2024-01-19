@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface CardRepository : JpaRepository<Card, Long> {
     //fun findByCardListIdAndId(cardListId: Long, cardId: Long): Card?
     fun findAllByUserId(id : Long): List<Card>
-    fun findByUserIdAndId(userId : Long, id : Long) : Card
+    fun findByUserIdAndId(userId : Long, id : Long) : Card?
 }

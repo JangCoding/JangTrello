@@ -9,14 +9,18 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "card")
 class Card(
+    @Column(name = "date")
+    val date: String = LocalDateTime.now().toString(),
+
     @Column(name = "email")
     var email: String,
+
+    @Column(name = "nickname")
+    var nickName: String,
 
     @Column(name = "title")
     var title: String,
 
-    @Column(name = "date")
-    val date: String = LocalDateTime.now().toString(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
