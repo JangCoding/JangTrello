@@ -5,11 +5,11 @@
 또한 자신 혹은 다른 사용자의 할 일 카드에 댓글(Comment)를 추가할 수도 있습니다.
 카드와 댓글의 수정/삭제 시 다시 한 번 비밀번호를 입력하여 본인을 확인한 뒤 진행하도록 설정되어 있습니다.
 
+![REST API](https://github.com/JangCoding/JangTrello/assets/62090021/1d53f13c-71d5-4a5e-a97e-449609d45f5d)
 
 ## Entity-Relationship Diagram (ERD)
-<p align="center">
-  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/c9628314-98fb-479b-a0c3-2d92a491e244">
-</p>
+![Brainstorming (1)](https://github.com/JangCoding/JangTrello/assets/62090021/8a44535c-bca3-4a54-a958-d7a285760454)
+![ERD](https://github.com/JangCoding/JangTrello/assets/62090021/851ce856-8946-48b0-90bd-3562a29adaf6)
 
 ### USER(Entity): TODO 서비스 사용자 개체
 
@@ -44,17 +44,9 @@
 - COMMENT to User : Many-to-One (여러 댓글을 한 사용자가 관계를 갖음)
 - COMMENT to Card : Many-to-One (여러 댓글을 한 카드가 관계를 갖음)
     
----
-
-## USER CASE DIAGRAM
-<p align="center">
-  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/18d35b34-5ed6-40c6-bf4c-127dcc2e48e0">
-</p>
-
-## REST API
-<p align="center">
-  <img src="https://github.com/JangCoding/JangTrello/assets/62090021/237ed777-4fb2-4b3c-8aa7-3e96e53bb2b3">
-</p>
+--- 
+## REST API 
+![Brainstorming (3)](https://github.com/JangCoding/JangTrello/assets/62090021/9bfeb4cf-30a0-4a1c-8312-fc6d5925b093)
 
 ## STACKS
 - INTELLIJ
