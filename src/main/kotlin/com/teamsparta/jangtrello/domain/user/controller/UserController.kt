@@ -2,9 +2,14 @@ package com.teamsparta.jangtrello.domain.user.controller
 
 import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.service.UserService
+import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class UserController(
@@ -20,12 +25,12 @@ class UserController(
         return ResponseEntity.status(HttpStatus.OK)
             .body(userService.logIn(request))
     }
-    @PutMapping("/users/{nickName}/profile")
+    @PutMapping("/updateProfile")
     fun updateUser(
         @RequestBody request: UpdateUserRequest,
-        @PathVariable nickName:Long
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
     ): ResponseEntity<UserResponse> {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(userService.updateUser(request, nickName))
+            .body(userService.updateUser(userPrincipal, request))
     }
 }

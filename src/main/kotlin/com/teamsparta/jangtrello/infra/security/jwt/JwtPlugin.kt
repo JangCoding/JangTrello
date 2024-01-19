@@ -27,14 +27,14 @@ class JwtPlugin(
     }
 
     // 액세스 토큰 생성
-    fun generateAccessToken(subject:String, email : String, role : String) : String { // 토큰은 단순 String
-        return generateToken(subject, email, role, Duration.ofHours(accessTokenExpirationHour))
+    fun generateAccessToken(subject:String, email : String, role : String, nickname : String) : String { // 토큰은 단순 String
+        return generateToken(subject, email, role, nickname, Duration.ofHours(accessTokenExpirationHour))
     }
 
     // 토큰 생성 (확장함수)
-    private fun generateToken(subject:String, email : String, role : String, expirationPeriod: Duration) : String{
+    private fun generateToken(subject:String, email : String, role : String, nickname : String, expirationPeriod: Duration) : String{
         val claims : Claims = Jwts.claims() // 커스텀 클레임 생성
-            .add(mapOf("role" to role, "email" to email))
+            .add(mapOf("role" to role, "email" to email, "nickname" to nickname))
             .build()
 
         //val expirationPeriod = Duration.ofHours(168)
