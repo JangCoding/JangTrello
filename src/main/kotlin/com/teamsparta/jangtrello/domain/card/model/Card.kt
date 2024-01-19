@@ -56,9 +56,9 @@ fun Card.toResponse(): CardResponse {
         id = id!!,
         email = email,
         date = date,
+        nickName = nickName,
         title = title,
         status = status.name,
         contents = contents,
-//        comments = comments,
     )
 }
