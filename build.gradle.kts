@@ -6,6 +6,8 @@ plugins {
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
 	kotlin("plugin.noarg") version "1.8.22"
+
+	kotlin("kapt") version "1.8.22" // Kotlin Annotation Processing Tool. 어노테이션 분석 > QuertyDsl에 전달!
 }
 
 group = "com.teamsparta"
@@ -38,12 +40,17 @@ allOpen {
 	annotation("jakarta.persistence.Embeddable")
 }
 
+val queryDslVersion = "5.0.0" // QueryDsl 버전 선택
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta") // querydsl-jpa 라이브러리 추가!
+	kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta") //  Querydsl JPA의 Annotation Processor를 프로젝트에 추가!
 
     // springdoc 설치
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
