@@ -42,12 +42,21 @@ allOpen {
 
 val queryDslVersion = "5.0.0" // QueryDsl 버전 선택
 
+val kotestVersion = "5.5.5" // Junit 기반 테스팅 툴
+val mockkVersion = "1.13.8" // mock 위한 툴
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") // 테스트는 기본 의존성.
+
+	testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")     // kotest 설치
+	testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")   //
+	testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3") //
+	testImplementation("io.mockk:mockk:$mockkVersion") // mokk 설치
+	testImplementation("org.postgresql:postgresql") // 테스트용 DB 연결
 
 	implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta") // querydsl-jpa 라이브러리 추가!
 	kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta") //  Querydsl JPA의 Annotation Processor를 프로젝트에 추가!
@@ -78,7 +87,11 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
-tasks.withType<Test> {
+//tasks.withType<Test> {
+//	useJUnitPlatform()
+//}
+
+tasks.withType<Test>().configureEach() { // 변경 !!
 	useJUnitPlatform()
 }
 

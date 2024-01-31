@@ -1,6 +1,12 @@
 # SPRING_DATASOURCE_URL=jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?user=postgres.ywwgdmfctgcwcmbyiqds&password=
 
+
 spring:
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
+    username : postgres.ywwgdmfctgcwcmbyiqds
+    password : UzSLVHyaWUkwpSM6
+
   jpa:
     properties:
       hibernate:
