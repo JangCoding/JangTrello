@@ -20,3 +20,4 @@ class BaseEntity {
     @Column(name = "modified_at", nullable = true, updatable = true)
     var modifiedAt : LocalDateTime? = null
 }
+

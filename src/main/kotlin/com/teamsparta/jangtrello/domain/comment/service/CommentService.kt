@@ -14,6 +14,7 @@ import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentService(
@@ -28,7 +29,7 @@ class CommentService(
     ): List<CommentResponse> {
         return commentRepository.findAllByUserIdAndCardId(userPrincipal.id, cardId)
             ?.map { it.toResponse() }
-            ?: throw ModelNotFoundException("Comments", cardId)
+            ?: throw ModelNotFoundException("Card", cardId)
     }
 
     fun getComment(
@@ -40,6 +41,7 @@ class CommentService(
         return comment.toResponse()
     }
 
+    @Transactional
     fun createComment(
         userPrincipal: UserPrincipal,
         cardId: Long,
@@ -61,6 +63,7 @@ class CommentService(
         return comment.toResponse()
     }
 
+    @Transactional
     fun updateComment(
         userPrincipal: UserPrincipal,
         commentId: Long,
@@ -80,6 +83,7 @@ class CommentService(
         return commentRepository.save(comment).toResponse()
     }
 
+    @Transactional
     fun deleteComment(
         userPrincipal: UserPrincipal,
         commentId: Long,

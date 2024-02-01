@@ -45,7 +45,7 @@ class UserServiceImpl(
     override fun logIn(request: LogInRequest): LoginResponse {
         // email, password 체크
         val user = userRepository.findByEmail(request.email)
-            ?: throw ModelNotFoundException("User", null)
+            ?: throw ModelNotFoundException("User", "Email")
 
         if (!passwordEncoder.matches(request.password, user.password))
             throw InvalidCredentialsException("Password", request.password)

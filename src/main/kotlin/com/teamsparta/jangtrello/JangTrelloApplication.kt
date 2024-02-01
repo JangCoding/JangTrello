@@ -11,3 +11,5 @@ class JangTrelloApplication
 fun main(args: Array<String>) {
 	runApplication<JangTrelloApplication>(*args)
 }
+
+

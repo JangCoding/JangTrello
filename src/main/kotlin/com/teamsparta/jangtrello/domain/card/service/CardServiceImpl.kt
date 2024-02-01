@@ -27,7 +27,7 @@ class CardServiceImpl(
     @Transactional
     override fun createCard(userPrincipal: UserPrincipal, request: CreateCardRequest): CardResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id)
-            ?:throw ModelNotFoundException("id",0)
+            ?:throw ModelNotFoundException("User",userPrincipal.id)
 
         val card = Card(
             email = userPrincipal.email,
@@ -97,19 +97,20 @@ class CardServiceImpl(
     }
     @Transactional
     override fun deleteCard(userPrincipal: UserPrincipal, cardId: Long, password:String) {
+
         val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
             ?: throw ModelNotFoundException("Card", cardId)
 
-        val user = userRepository.findById(userPrincipal.id).orElse(null)
-            ?: throw IllegalStateException("User not found with id: ${userPrincipal.id}")
+        val user = userRepository.findByIdOrNull(userPrincipal.id)
+            ?: throw ModelNotFoundException("User",userPrincipal.id)
 
         if (!passwordEncoder.matches(password, user.password))
             throw InvalidCredentialsException("Password", password)
 
         cardRepository.delete(card)
+
+        TODO("카드 삭제시 유저 본인 확인 과정 필요 ")
     }
-
-
 }
 
 fun chkInputValidation(title: String, contents: String): Boolean {
