@@ -1,8 +1,11 @@
 package com.teamsparta.jangtrello.domain.comment.dto
 
+import java.time.LocalDateTime
+
 data class CommentResponse(
     val id : Long,
-    var date : String,
+    val createdAt: LocalDateTime?,
+    val modifiedAt: LocalDateTime?,
     var email : String,
     var nickName : String,
     var contents : String,

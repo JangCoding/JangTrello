@@ -7,7 +7,6 @@ import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.model.Comment
-import com.teamsparta.jangtrello.domain.comment.model.toResponse
 import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
@@ -98,4 +97,15 @@ class CommentService(
         commentRepository.delete(comment)
 
     }
+}
+
+fun Comment.toResponse(): CommentResponse {
+    return CommentResponse(
+        id = id!!,
+        createdAt = createdAt,
+        modifiedAt = modifiedAt,
+        email = email,
+        nickName = nickName,
+        contents = contents,
+    )
 }

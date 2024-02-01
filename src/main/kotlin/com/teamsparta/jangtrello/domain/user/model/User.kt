@@ -1,11 +1,21 @@
 package com.teamsparta.jangtrello.domain.user.model
 
-import com.teamsparta.jangtrello.domain.user.dto.UserResponse
 import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "users")
 class User(
+    @CreatedDate
+    @Column(name = "created_at")
+    val createdAt: LocalDateTime? = null,
+
+    @LastModifiedDate
+    @Column(name = "modified_at")
+    val modifiedAt: LocalDateTime? = null,
+
     @Column(name = "password")
     var password : String,
 
@@ -19,17 +29,10 @@ class User(
     @Column(name = "role")
     val role:UserRole,
 
-) {
+    ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long? = null
 }
 
-fun User.toResponse(): UserResponse {
-    return UserResponse(
-        id = id!!,
-        email = email,
-        nickName = nickName,
-        role = role.name
-    )
-}
+

@@ -2,7 +2,6 @@ package com.teamsparta.jangtrello.domain.card.controller
 
 import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
-import com.teamsparta.jangtrello.domain.card.dto.DeleteCardRequest
 import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
 import com.teamsparta.jangtrello.domain.card.service.CardService
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
@@ -101,7 +100,7 @@ class CardController(
         @RequestBody request : UpdateCardRequest,
     ) : ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardService.updateCard(userPrincipal,cardId, request))
+        return ResponseEntity.status(HttpStatus.OK).body(cardService.updateCard(userPrincipal,cardId, request,))
     }
 
     @DeleteMapping("/{cardId}")
@@ -109,10 +108,10 @@ class CardController(
     fun deleteCard(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @PathVariable cardId : Long,
-        @RequestBody request : DeleteCardRequest,
+        password : String,
     ) : ResponseEntity<Unit>{
 
-        cardService.deleteCard(userPrincipal, cardId, request)
+        cardService.deleteCard(userPrincipal, cardId, password)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 

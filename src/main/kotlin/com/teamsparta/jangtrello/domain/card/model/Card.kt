@@ -3,14 +3,22 @@ package com.teamsparta.jangtrello.domain.card.model
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import com.teamsparta.jangtrello.domain.user.model.User
 import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
 
 @Entity
 @Table(name = "card")
 class Card(
+
+    @CreatedDate
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: LocalDateTime? = null,
+
+    @LastModifiedDate
+    @Column(name = "modified_at")
+    val modifiedAt: LocalDateTime? = null,
 
     @Column(name = "email")
     var email: String,

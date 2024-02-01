@@ -1,17 +1,23 @@
 package com.teamsparta.jangtrello.domain.comment.model
 
 import com.teamsparta.jangtrello.domain.card.model.Card
-import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.user.model.User
 import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "comment")
 class Comment(
 
-    @Column(name = "date")
-    val date: String = LocalDateTime.now().toString(),
+    @CreatedDate
+    @Column(name = "created_at")
+    val createdAt: LocalDateTime? = null,
+
+    @LastModifiedDate
+    @Column(name = "modified_at")
+    val modifiedAt: LocalDateTime? = null,
 
     @Column(name = "email")
     var email : String,
@@ -38,12 +44,4 @@ class Comment(
 
 }
 
-fun Comment.toResponse(): CommentResponse {
-    return CommentResponse(
-        id = id!!,
-        date = date,
-        email = email,
-        nickName = nickName,
-        contents = contents,
-    )
-}
+

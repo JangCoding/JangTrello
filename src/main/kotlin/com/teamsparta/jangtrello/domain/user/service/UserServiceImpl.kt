@@ -5,7 +5,6 @@ import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.model.User
 import com.teamsparta.jangtrello.domain.user.model.UserRole
-import com.teamsparta.jangtrello.domain.user.model.toResponse
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
@@ -75,4 +74,15 @@ class UserServiceImpl(
 
         return userRepository.save(user).toResponse()
     }
+}
+
+fun User.toResponse(): UserResponse {
+    return UserResponse(
+        id = id!!,
+        createdAt = createdAt,
+        modifiedAt = modifiedAt,
+        email = email,
+        nickName = nickName,
+        role = role.name
+    )
 }
