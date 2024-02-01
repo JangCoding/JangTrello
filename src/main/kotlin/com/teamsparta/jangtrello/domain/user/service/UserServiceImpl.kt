@@ -11,6 +11,7 @@ import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceImpl(
@@ -20,6 +21,7 @@ class UserServiceImpl(
 
 ) : UserService {
 
+    @Transactional
     override fun signUp(request: SignUpRequest): UserResponse {
         if (userRepository.existsByEmail(request.email)) {
             throw IllegalStateException("Email is already in use")
@@ -59,7 +61,7 @@ class UserServiceImpl(
         )
     }
 
-
+    @Transactional
     override fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id)
             ?: throw ModelNotFoundException("User", userPrincipal.id)
@@ -72,7 +74,9 @@ class UserServiceImpl(
         }
         user.nickName = request.nickname
 
-        return userRepository.save(user).toResponse()
+        userRepository.save(user)
+
+        return user.toResponse()
     }
 }
 

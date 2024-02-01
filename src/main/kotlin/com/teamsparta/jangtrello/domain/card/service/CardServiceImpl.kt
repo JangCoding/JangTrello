@@ -92,7 +92,8 @@ class CardServiceImpl(
         }
         card.contents = request.contents
 
-        return cardRepository.save(card).toResponse()
+        cardRepository.save(card)
+        return card.toResponse()
     }
     @Transactional
     override fun deleteCard(userPrincipal: UserPrincipal, cardId: Long, password:String) {

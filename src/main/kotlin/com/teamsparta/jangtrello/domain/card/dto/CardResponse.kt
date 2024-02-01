@@ -6,8 +6,8 @@ import java.time.LocalDateTime
 data class CardResponse(
     val id : Long, // 자동 생성
     val email : String,
-    var createdAt : LocalDateTime?, // 자동 생성
-    var modifiedAt : LocalDateTime?, // 자동 생성
+    val createdAt : LocalDateTime?, // 자동 생성
+    val modifiedAt : LocalDateTime?, // 자동 생성
     var nickName : String,
     var title : String,
     var status : String,

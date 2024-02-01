@@ -100,7 +100,7 @@ class CardController(
         @RequestBody request : UpdateCardRequest,
     ) : ResponseEntity<CardResponse> {
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardService.updateCard(userPrincipal,cardId, request,))
+        return ResponseEntity.status(HttpStatus.OK).body(cardService.updateCard(userPrincipal,cardId, request))
     }
 
     @DeleteMapping("/{cardId}")
