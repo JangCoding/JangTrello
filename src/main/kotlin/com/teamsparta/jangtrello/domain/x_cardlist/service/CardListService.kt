@@ -1,8 +1,8 @@
-package com.teamsparta.jangtrello.domain.cardlist.service
+package com.teamsparta.jangtrello.domain.x_cardlist.service
 
-import com.teamsparta.jangtrello.domain.cardlist.dto.CardListResponse
-import com.teamsparta.jangtrello.domain.cardlist.dto.CreateCardListRequest
-import com.teamsparta.jangtrello.domain.cardlist.dto.UpdateCardListRequest
+import com.teamsparta.jangtrello.domain.x_cardlist.dto.CardListResponse
+import com.teamsparta.jangtrello.domain.x_cardlist.dto.CreateCardListRequest
+import com.teamsparta.jangtrello.domain.x_cardlist.dto.UpdateCardListRequest
 
 interface CardListService {
     fun getCardLists() : List<CardListResponse>

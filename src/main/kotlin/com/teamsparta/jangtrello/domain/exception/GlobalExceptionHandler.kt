@@ -32,6 +32,17 @@ class GlobalExceptionHandler {    // 전역적으로 예외 처리.
             .body(ErrorResponse(message = e.message)) // 예외 메세지 그대로 전달
     }
 
+
+    // 비밀번호 불일치 예외
+    @ExceptionHandler(IncorrectPasswordException::class)
+    fun handleIncorrectPasswordException(e:IncorrectPasswordException) : ResponseEntity<ErrorResponse>{
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse(message = e.message))
+    }
+
+
+
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleIllegalArgumentException(e: IllegalArgumentException) : ResponseEntity<ErrorResponse>
     {
@@ -46,4 +57,6 @@ class GlobalExceptionHandler {    // 전역적으로 예외 처리.
             .status(HttpStatus.UNPROCESSABLE_ENTITY) //서버가 요청을 이해했지만, 처리할 수 없거나, 서버에서 요청을 처리하는 동안 유효성 검사 오류가 발생했음
             .body(ErrorResponse(message = e.message)) // 예외 메세지 그대로 전달
     }
+
+
 }

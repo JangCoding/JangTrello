@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.cardlist.dto
+package com.teamsparta.jangtrello.domain.x_cardlist.dto
 
 import org.springframework.security.core.userdetails.UserDetails
 

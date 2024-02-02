@@ -1,16 +1,14 @@
 package com.teamsparta.jangtrello.domain.card.model
 
+import com.teamsparta.jangtrello.domain.BaseEntity
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import com.teamsparta.jangtrello.domain.user.model.User
 import jakarta.persistence.*
-import java.time.LocalDateTime
 
 
 @Entity
 @Table(name = "card")
 class Card(
-    @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "email")
     var email: String,
@@ -20,7 +18,6 @@ class Card(
 
     @Column(name = "title")
     var title: String,
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -36,7 +33,7 @@ class Card(
     @OneToMany(mappedBy = "card", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY, ) //, orphanRemoval = true
     var comments: MutableList<Comment> = mutableListOf(),
 
-    ) {
+    ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

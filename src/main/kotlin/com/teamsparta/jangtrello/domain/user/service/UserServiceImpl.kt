@@ -5,13 +5,13 @@ import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.dto.*
 import com.teamsparta.jangtrello.domain.user.model.User
 import com.teamsparta.jangtrello.domain.user.model.UserRole
-import com.teamsparta.jangtrello.domain.user.model.toResponse
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceImpl(
@@ -21,6 +21,7 @@ class UserServiceImpl(
 
 ) : UserService {
 
+    @Transactional
     override fun signUp(request: SignUpRequest): UserResponse {
         if (userRepository.existsByEmail(request.email)) {
             throw IllegalStateException("Email is already in use")
@@ -44,7 +45,7 @@ class UserServiceImpl(
     override fun logIn(request: LogInRequest): LoginResponse {
         // email, password 체크
         val user = userRepository.findByEmail(request.email)
-            ?: throw ModelNotFoundException("User", null)
+            ?: throw ModelNotFoundException("User", "Email")
 
         if (!passwordEncoder.matches(request.password, user.password))
             throw InvalidCredentialsException("Password", request.password)
@@ -60,7 +61,7 @@ class UserServiceImpl(
         )
     }
 
-
+    @Transactional
     override fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id)
             ?: throw ModelNotFoundException("User", userPrincipal.id)
@@ -73,6 +74,19 @@ class UserServiceImpl(
         }
         user.nickName = request.nickname
 
-        return userRepository.save(user).toResponse()
+        userRepository.save(user)
+
+        return user.toResponse()
     }
+}
+
+fun User.toResponse(): UserResponse {
+    return UserResponse(
+        id = id!!,
+        createdAt = createdAt,
+        modifiedAt = modifiedAt,
+        email = email,
+        nickName = nickName,
+        role = role.name
+    )
 }
