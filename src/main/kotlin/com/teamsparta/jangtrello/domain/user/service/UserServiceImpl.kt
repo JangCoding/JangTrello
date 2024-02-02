@@ -8,6 +8,8 @@ import com.teamsparta.jangtrello.domain.user.model.UserRole
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import com.teamsparta.jangtrello.infra.security.jwt.JwtPlugin
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -59,6 +61,15 @@ class UserServiceImpl(
                 nickname = user.nickName
             )
         )
+    }
+
+    override fun getPagedUserList(pageable: Pageable, role: String?): Page<UserResponse> {
+        val r =  when(role?.uppercase()){
+            "USER" -> UserRole.USER
+            "MANAGER" -> UserRole.MANAGER
+            else -> null
+        }
+        return userRepository.findByPageableAndRole(pageable, r).map{ it.toResponse() }
     }
 
     @Transactional

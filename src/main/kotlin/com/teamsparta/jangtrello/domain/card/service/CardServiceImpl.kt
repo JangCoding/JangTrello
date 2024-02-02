@@ -43,13 +43,13 @@ class CardServiceImpl(
 
     override fun getCards(userPrincipal: UserPrincipal): List<CardResponse> {
         return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }
-        //.sortedByDescending { it.date }.sortedBy { it.status }
+            .sortedByDescending { it.createdAt }.sortedBy { it.status }
     }
 
 
     override fun getCardsSorted(userPrincipal: UserPrincipal, sortBy : String) : List<CardResponse>    {
         when (sortBy.uppercase()){
-            "ASC" ->return  cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedBy { it.createdAt }
+            "ASC" -> return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedBy { it.createdAt }
             "DESC"-> return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedByDescending { it.createdAt }
             else -> throw IllegalArgumentException("Invalid sortBy value: $sortBy. Should be 'ASC' or 'DESC'.")
         }
@@ -59,6 +59,7 @@ class CardServiceImpl(
         val cardStatus = when(status?.uppercase()){
             "FALSE" -> CardStatus.FALSE
             "TRUE" -> CardStatus.TRUE
+            null -> null
             else -> throw IllegalArgumentException("The Status is invalid")
         }
         return cardRepository.findByPageableAndStatus(pageable,cardStatus).map{ it.toResponse()}
