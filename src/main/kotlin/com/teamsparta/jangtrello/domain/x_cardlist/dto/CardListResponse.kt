@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.cardlist.dto
+package com.teamsparta.jangtrello.domain.x_cardlist.dto
 
 data class CardListResponse(
     val id : Long,

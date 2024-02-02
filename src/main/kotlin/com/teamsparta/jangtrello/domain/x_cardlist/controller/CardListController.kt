@@ -1,6 +1,6 @@
-package com.teamsparta.jangtrello.domain.cardlist.controller
+package com.teamsparta.jangtrello.domain.x_cardlist.controller
 
-import com.teamsparta.jangtrello.domain.cardlist.service.CardListService
+import com.teamsparta.jangtrello.domain.x_cardlist.service.CardListService
 
 //@RestController
 //@RequestMapping("/cardLists")

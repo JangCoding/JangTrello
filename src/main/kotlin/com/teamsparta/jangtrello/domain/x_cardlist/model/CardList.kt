@@ -1,6 +1,6 @@
-package com.teamsparta.jangtrello.domain.cardlist.model
+package com.teamsparta.jangtrello.domain.x_cardlist.model
 
-import com.teamsparta.jangtrello.domain.cardlist.dto.CardListResponse
+import com.teamsparta.jangtrello.domain.x_cardlist.dto.CardListResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

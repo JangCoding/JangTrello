@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.cardlist.service
+package com.teamsparta.jangtrello.domain.x_cardlist.service
 
 
 //@Service

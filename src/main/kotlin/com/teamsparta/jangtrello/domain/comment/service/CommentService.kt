@@ -1,7 +1,7 @@
 package com.teamsparta.jangtrello.domain.comment.service
 
 import com.teamsparta.jangtrello.domain.card.repository.CardRepository
-import com.teamsparta.jangtrello.domain.cardlist.repository.CommentRepository
+import com.teamsparta.jangtrello.domain.comment.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest

@@ -1,4 +1,4 @@
-package com.teamsparta.jangtrello.domain.cardlist.repository
+package com.teamsparta.jangtrello.domain.comment.repository
 
 import com.teamsparta.jangtrello.domain.comment.model.Comment
 import org.springframework.data.jpa.repository.JpaRepository
