@@ -23,6 +23,7 @@ class UserServiceImpl(
 
 ) : UserService {
 
+    // 유저 회원 가입
     @Transactional
     override fun signUp(request: SignUpRequest): UserResponse {
         if (userRepository.existsByEmail(request.email)) {
@@ -44,6 +45,7 @@ class UserServiceImpl(
         ).toResponse()
     }
 
+    // 유저 로그인
     override fun logIn(request: LogInRequest): LoginResponse {
         // email, password 체크
         val user = userRepository.findByEmail(request.email)
@@ -63,6 +65,7 @@ class UserServiceImpl(
         )
     }
 
+    // 유저 리스트 조회 ( 페이지 적영, 역할 기준 )
     override fun getPagedUserList(pageable: Pageable, role: String?): Page<UserResponse> {
         val r =  when(role?.uppercase()){
             "USER" -> UserRole.USER
@@ -72,6 +75,7 @@ class UserServiceImpl(
         return userRepository.findByPageableAndRole(pageable, r).map{ it.toResponse() }
     }
 
+    // 유저 업데이트
     @Transactional
     override fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id)
@@ -89,6 +93,8 @@ class UserServiceImpl(
 
         return user.toResponse()
     }
+
+    // 유저 삭제
 }
 
 fun User.toResponse(): UserResponse {

@@ -1,12 +1,12 @@
 package com.teamsparta.jangtrello.domain.comment.service
 
 import com.teamsparta.jangtrello.domain.card.repository.CardRepository
-import com.teamsparta.jangtrello.domain.comment.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.comment.dto.CommentResponse
 import com.teamsparta.jangtrello.domain.comment.dto.CreateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.DeleteCommentRequest
 import com.teamsparta.jangtrello.domain.comment.dto.UpdateCommentRequest
 import com.teamsparta.jangtrello.domain.comment.model.Comment
+import com.teamsparta.jangtrello.domain.comment.repository.CommentRepository
 import com.teamsparta.jangtrello.domain.exception.InvalidCredentialsException
 import com.teamsparta.jangtrello.domain.exception.ModelNotFoundException
 import com.teamsparta.jangtrello.domain.user.repository.UserRepository
@@ -23,6 +23,7 @@ class CommentService(
     private val commentRepository: CommentRepository,
     private val passwordEncoder: PasswordEncoder,
 ) {
+    // 댓글 목록 조회
     fun getComments(
         userPrincipal: UserPrincipal,
         cardId: Long
@@ -32,6 +33,7 @@ class CommentService(
             ?: throw ModelNotFoundException("Card", cardId)
     }
 
+    // 댓글 단건 조회
     fun getComment(
         userPrincipal: UserPrincipal,
         commentId: Long
@@ -41,6 +43,7 @@ class CommentService(
         return comment.toResponse()
     }
 
+    // 댓글 생성
     @Transactional
     fun createComment(
         userPrincipal: UserPrincipal,
@@ -63,6 +66,7 @@ class CommentService(
         return comment.toResponse()
     }
 
+    // 댓글 수정
     @Transactional
     fun updateComment(
         userPrincipal: UserPrincipal,
@@ -83,6 +87,7 @@ class CommentService(
         return commentRepository.save(comment).toResponse()
     }
 
+    // 댓글 삭제
     @Transactional
     fun deleteComment(
         userPrincipal: UserPrincipal,

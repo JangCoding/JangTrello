@@ -24,6 +24,8 @@ class CardServiceImpl(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 )  : CardService{
+
+    // 할 일 카드 생성
     @Transactional
     override fun createCard(userPrincipal: UserPrincipal, request: CreateCardRequest): CardResponse {
         val user = userRepository.findByIdOrNull(userPrincipal.id)
@@ -41,20 +43,22 @@ class CardServiceImpl(
     }
 
 
+    // 할 일 카드 전부 조회 ( 생성일, 상태 기준 정렬 )
     override fun getCards(userPrincipal: UserPrincipal): List<CardResponse> {
         return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }
             .sortedByDescending { it.createdAt }.sortedBy { it.status }
     }
 
-
+    // 할 일 카드 생성일 기준 정렬 조회 ( 오름차순 / 내림차순 )
     override fun getCardsSorted(userPrincipal: UserPrincipal, sortBy : String) : List<CardResponse>    {
-        when (sortBy.uppercase()){
-            "ASC" -> return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedBy { it.createdAt }
-            "DESC"-> return cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedByDescending { it.createdAt }
+        return when (sortBy.uppercase()){
+            "ASC" -> cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedBy { it.createdAt }
+            "DESC"-> cardRepository.findAllByUserId(userPrincipal.id).map { it.toResponse() }.sortedByDescending { it.createdAt }
             else -> throw IllegalArgumentException("Invalid sortBy value: $sortBy. Should be 'ASC' or 'DESC'.")
         }
     }
 
+    // 할 일 카드 상태 기준 조회 ( 페이지 적용 , 기본값 : id 정렬 )
     override fun getPagedCards(pageable: Pageable, status: String?, userPrincipal: UserPrincipal): Page<CardResponse>? {
         val cardStatus = when(status?.uppercase()){
             "FALSE" -> CardStatus.FALSE
@@ -65,21 +69,19 @@ class CardServiceImpl(
         return cardRepository.findByPageableAndStatus(pageable,cardStatus).map{ it.toResponse()}
     }
 
+    // 할 일 카드 단건 조회
     override fun getCard(userPrincipal: UserPrincipal, cardId: Long): CardResponse { //cardListId: Long,
         val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
             ?: throw ModelNotFoundException("Card", cardId)
         return card.toResponse()
     }
 
+    // 할 일 카드 제목 검색  // -> 내용 검색도 추가 해보기 ?
     override fun searchCards(title:String) : List<CardResponse>{
         return cardRepository.searchCardByTitle(title).map{it.toResponse()}
     }
 
-
-    //    fun getCardsUserNamed(cardListId: Long, userName : String) : List<CardResponse>    {
-//        return cardRepository.findAllByCardListId(cardListId).map { it.toResponse() }.sortedByDescending { it.date }.sortedBy { it.status }.filter{it.userName == userName }
-//    }
-
+    // 할 일 카드 업데이트
     @Transactional
     override fun updateCard(userPrincipal: UserPrincipal, cardId: Long, request: UpdateCardRequest): CardResponse {
         val card = cardRepository.findByUserIdAndId(userPrincipal.id, cardId)
@@ -96,6 +98,8 @@ class CardServiceImpl(
         cardRepository.save(card)
         return card.toResponse()
     }
+
+    // 할 일 카드 삭제
     @Transactional
     override fun deleteCard(userPrincipal: UserPrincipal, cardId: Long, password:String) {
 
@@ -111,9 +115,11 @@ class CardServiceImpl(
         cardRepository.delete(card)
 
         TODO("카드 삭제시 유저 본인 확인 과정 필요 ")
+        TODO("soft delete 구현")
     }
 }
 
+// Valid 로 대체
 fun chkInputValidation(title: String, contents: String): Boolean {
     if (title.length in 1..200 && contents.length in 1..1000)
         return true
