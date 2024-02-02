@@ -15,7 +15,7 @@ class ParameterAop {
 
     // com/example/aop/controller 패키지 하위 클래스들 전부 적용하겠다고 지점 설정
     @Pointcut("execution(* com.teamsparta.jangtrello..*.*(..))")
-    public fun cut() {} // AspectJ에 의해 해당 메서드의 호출 지점으로 등록되기 때문에 pu
+    public fun cut() {} // AspectJ에 의해 해당 메서드의 호출 지점으로 등록되기 때문에 public
     // cut() 메서드가 실행되는 지점 이전에 before() 메서드 실행
     @Before("cut()")
     fun before(joinPoint: JoinPoint) {
