@@ -4,6 +4,7 @@ import com.teamsparta.jangtrello.domain.card.dto.CardResponse
 import com.teamsparta.jangtrello.domain.card.dto.CreateCardRequest
 import com.teamsparta.jangtrello.domain.card.dto.UpdateCardRequest
 import com.teamsparta.jangtrello.domain.card.service.CardService
+import com.teamsparta.jangtrello.infra.aop.MyStopWatch
 import com.teamsparta.jangtrello.infra.security.UserPrincipal
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -64,7 +65,8 @@ class CardController(
 
     ):ResponseEntity<Page<CardResponse>>{
 
-        return ResponseEntity.status(HttpStatus.OK).body(cardService.getPagedCards(pageable, "false", userPrincipal))
+        println("Controller status : $status")
+        return ResponseEntity.status(HttpStatus.OK).body(cardService.getPagedCards(pageable, status, userPrincipal))
     }
 
     @GetMapping("sorted/{sortBy}")
@@ -75,6 +77,7 @@ class CardController(
         return ResponseEntity.status(HttpStatus.OK).body(cardService.getCardsSorted(userPrincipal, sortBy))
     }
 
+    @MyStopWatch
     @GetMapping("/{cardId}")
     fun getCard(
         @AuthenticationPrincipal userPrincipal: UserPrincipal,

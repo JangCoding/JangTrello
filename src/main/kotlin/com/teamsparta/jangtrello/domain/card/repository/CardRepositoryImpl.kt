@@ -35,9 +35,10 @@ class CardRepositoryImpl : CustomCardRepository, QueryDslSupport() { // 괄호 �
         val comment = QComment.comment
 
         // order를 동적으로 설정하기 위해 미리 query를 만들어둠
-        val query = queryFactory.selectFrom(card)
+        val query = queryFactory
+            .selectFrom(card)
             .where(whereClause)         // 현재 조건따라
-            .leftJoin(card.comments, comment) // N+1 문제 해결, comment 가져오기3
+            .leftJoin(card.comments, comment) // N+1 문제 해결, comment 가져오기
             .fetchJoin()
             .offset(pageable.offset)    // 현재 페이지 시작 위치
             .limit(pageable.pageSize.toLong()) // 페이지당 표시 항목 수
