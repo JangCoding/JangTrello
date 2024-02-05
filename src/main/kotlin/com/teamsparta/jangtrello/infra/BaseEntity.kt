@@ -15,18 +15,18 @@ import java.time.LocalDateTime
 @MappedSuperclass
 class BaseEntity {
 
+    // column name = 자동으로 mapping 됨
     @CreatedDate
-    @Column(name = "created_at", updatable = false)
+    @Column(updatable = false)
     var createdAt : LocalDateTime = LocalDateTime.now()
 
     @CreatedBy
     @Column( updatable = false)
-    var createdBy : String = "system"
+    var createdBy : Long? = null
 
     @LastModifiedDate
-    @Column(name = "modified_at")
     var modifiedAt : LocalDateTime? = LocalDateTime.now()
 
     @LastModifiedBy
-    var modifiedBy : String = "system"
+    var modifiedBy : Long? = null
 }
