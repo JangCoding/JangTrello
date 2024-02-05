@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 data class UserPrincipal( // 사용자 정보를 표현
     val id: Long,
     val email:String,
-    val authoricies : Collection<GrantedAuthority> // 사용자 권한 정보 나타냄
+    val authorities : Collection<GrantedAuthority> // 사용자 권한 정보 나타냄
     // role : 단순 string 아닌 GrantedAuthority(권한이름들 담겨있음) 적용.
 ){
 
