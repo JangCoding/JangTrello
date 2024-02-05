@@ -1,6 +1,6 @@
 package com.teamsparta.jangtrello.domain.user.model
 
-import com.teamsparta.jangtrello.domain.BaseEntity
+import com.teamsparta.jangtrello.infra.BaseEntity
 import jakarta.persistence.*
 
 @Entity

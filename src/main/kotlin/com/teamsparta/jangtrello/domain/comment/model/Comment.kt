@@ -1,6 +1,6 @@
 package com.teamsparta.jangtrello.domain.comment.model
 
-import com.teamsparta.jangtrello.domain.BaseEntity
+import com.teamsparta.jangtrello.infra.BaseEntity
 import com.teamsparta.jangtrello.domain.card.model.Card
 import com.teamsparta.jangtrello.domain.user.model.User
 import jakarta.persistence.*
