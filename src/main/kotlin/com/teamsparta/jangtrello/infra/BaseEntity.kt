@@ -13,20 +13,20 @@ import java.time.LocalDateTime
 
 @EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
-class BaseEntity (
+class BaseEntity {
 
     @CreatedDate
-    @Column(updatable = false)
-    var createdAt : LocalDateTime = LocalDateTime.now(),
+    @Column(name = "created_at", updatable = false)
+    var createdAt : LocalDateTime = LocalDateTime.now()
 
     @CreatedBy
-    @Column(updatable = false)
-    var createdBy : String = "system",
+    @Column( updatable = false)
+    var createdBy : String = "system"
 
     @LastModifiedDate
-    var modifiedAt : LocalDateTime? = LocalDateTime.now(),
+    @Column(name = "modified_at")
+    var modifiedAt : LocalDateTime? = LocalDateTime.now()
 
     @LastModifiedBy
-    var modifiedBy : String = "system",
-)
-
+    var modifiedBy : String = "system"
+}
