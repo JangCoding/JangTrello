@@ -8,4 +8,5 @@ interface UserRepository  : JpaRepository<User, Long>, CustomUserRepository {
     fun existsByEmail(email: String): Boolean
     fun existsByNickName(nickname: String): Boolean
     fun findByEmail(email : String) : User? // 유저가 null일수도
+
 }

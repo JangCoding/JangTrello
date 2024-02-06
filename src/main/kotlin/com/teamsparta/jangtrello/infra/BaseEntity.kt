@@ -21,7 +21,7 @@ class BaseEntity {
     var createdAt : LocalDateTime = LocalDateTime.now()
 
     @CreatedBy
-    @Column( updatable = false)
+    @Column(updatable = false)
     var createdBy : Long? = null
 
     @LastModifiedDate
@@ -30,3 +30,4 @@ class BaseEntity {
     @LastModifiedBy
     var modifiedBy : Long? = null
 }
+

@@ -75,6 +75,16 @@ class UserServiceImpl(
         return userRepository.findByPageableAndRole(pageable, r).map{ it.toResponse() }
     }
 
+    override fun getUser(id:Long): DetailUserResponse {
+        return userRepository.findByIdDetailed(id)
+            ?.toResponse()
+            ?:throw ModelNotFoundException("ID", id)
+    }
+
+    override fun getUsersByNickName(pageable: Pageable, nickName: String): Page<SimpleUserResponse> {
+        return userRepository.findByNickName(pageable, nickName).map{ it.toResponse()}
+    }
+
     // 유저 업데이트
     @Transactional
     override fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse {
@@ -95,15 +105,4 @@ class UserServiceImpl(
     }
 
     // 유저 삭제
-}
-
-fun User.toResponse(): UserResponse {
-    return UserResponse(
-        id = id!!,
-        createdAt = createdAt,
-        modifiedAt = modifiedAt,
-        email = email,
-        nickName = nickName,
-        role = role.name
-    )
 }
