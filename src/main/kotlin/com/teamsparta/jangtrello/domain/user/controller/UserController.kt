@@ -41,6 +41,20 @@ class UserController(
         return ResponseEntity.status(HttpStatus.OK).body(userService.getPagedUserList(pageable,role))
     }
 
+    @GetMapping("/findBy/{nickName}")
+    fun getUsersByNickName(
+        @PageableDefault(
+            size = 3,
+            sort = ["id"]
+        ) pageable: Pageable,
+
+       @PathVariable nickName : String
+    ) : ResponseEntity<Page<SimpleUserResponse>>
+    {
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(userService.getUsersByNickName(pageable, nickName))
+    }
+
     @PutMapping("/updateProfile")
     fun updateUser(
         @RequestBody request: UpdateUserRequest,

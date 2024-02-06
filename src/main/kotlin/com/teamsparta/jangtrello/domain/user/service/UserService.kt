@@ -16,6 +16,10 @@ interface UserService {
     // 유저 리스트 조회 ( 페이지 적영, 역할 기준 )
     fun getPagedUserList(pageable:Pageable,role:String?) : Page<UserResponse>
 
+    // 같은 닉네임 유저들 간단 정보 조회
+    fun getUsersByNickName(pageable: Pageable, nickName: String) : Page<SimpleUserResponse>
+
+
     // 유저 업데이트
     fun updateUser(userPrincipal: UserPrincipal, request: UpdateUserRequest): UserResponse
 
