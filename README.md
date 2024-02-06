@@ -2,13 +2,13 @@
 
 ### 코드 개선 내역
 - Controller, Service 패키지 내 클래스 개선
-  - Controller Advice 로 예외 공통화 처리
-  - Service 인터페이스와 구현체 분리하여 추상화
+ - Controller Advice 로 예외 공통화 처리
+ - Service 인터페이스와 구현체 분리하여 추상화
 - CustomException 정의 및 SpringAOP 적용
 - QueryDSL 을 사용한 검색 기능
 - Pageable 을 사용하여 페이징 및 정렬 기능
 - 다양한 조건을 동적 쿼리로 처리 ( ID, 역할 )
-  - 제목/태그/카테고리/게시글 상태/N일 전 게시글 ( 미완 )
+ - 제목/태그/카테고리/게시글 상태/N일 전 게시글 ( 미완 )
  
 ### TODO
 - SERVICE / REPOSITORY 테스트 코드 만들기
