@@ -41,6 +41,15 @@ class UserController(
         return ResponseEntity.status(HttpStatus.OK).body(userService.getPagedUserList(pageable,role))
     }
 
+    @GetMapping("/Users/{id}")
+    fun getUser(
+        @PathVariable id : Long
+    ) : ResponseEntity<DetailUserResponse>
+    {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(id))
+    }
+
+
     @GetMapping("/findBy/{nickName}")
     fun getUsersByNickName(
         @PageableDefault(

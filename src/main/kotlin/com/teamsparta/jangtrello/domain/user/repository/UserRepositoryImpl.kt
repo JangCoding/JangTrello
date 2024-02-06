@@ -2,10 +2,7 @@ package com.teamsparta.jangtrello.domain.user.repository
 
 import com.querydsl.core.BooleanBuilder
 import com.querydsl.core.types.Projections
-import com.teamsparta.jangtrello.domain.user.model.QUser
-import com.teamsparta.jangtrello.domain.user.model.SimpleUser
-import com.teamsparta.jangtrello.domain.user.model.User
-import com.teamsparta.jangtrello.domain.user.model.UserRole
+import com.teamsparta.jangtrello.domain.user.model.*
 import com.teamsparta.jangtrello.infra.querydsl.QueryDslSupport
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -14,6 +11,20 @@ import org.springframework.data.domain.Pageable
 class UserRepositoryImpl : CustomUserRepository, QueryDslSupport() {
     private var q_user = QUser.user
 
+    override fun findByIdDetailed(id: Long): DetailUser? {
+        return queryFactory
+            .select(
+                QDetailUser(    //Q 객체의 생성자 방식으로 Projection. 순서 안지켜도 됨.
+                    q_user.createdAt,
+                    q_user.email,
+                    q_user.nickName,
+                    q_user.role
+                )
+            )
+            .from(q_user)
+            .where(q_user.id.eq(id))
+            .fetchOne()
+    }
 
     override fun findByNickName(pageable: Pageable, nickName : String): Page<SimpleUser> {
 
@@ -30,7 +41,7 @@ class UserRepositoryImpl : CustomUserRepository, QueryDslSupport() {
 
         val contents = queryFactory
             .select(
-                Projections.constructor(
+                Projections.constructor( // 생성자 방식으로 Projection. 순서 지켜야 됨
                     SimpleUser::class.java,
                     q_user.email,
                     q_user.nickName
