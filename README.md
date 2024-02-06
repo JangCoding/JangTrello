@@ -1,6 +1,6 @@
 # JangTrello
 
-### 코드 개선 내역
+### 코드 개선 내역 ( 24/02/06 )
 - Controller, Service 패키지 내 클래스 개선
  - Controller Advice 로 예외 공통화 처리
  - Service 인터페이스와 구현체 분리하여 추상화
