@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.test.context.ActiveProfiles
 
 
@@ -32,68 +35,39 @@ class UserRepositoryTest @Autowired constructor(
         result1.nickName shouldBe "user6"
     }
 
+    @Test
+    fun `findByPageableAndRole 에 Role 값에 따른 테스트`(){
+         //GIVEN
+        userRepository.saveAllAndFlush(DEFAULT_MEMBER_LIST)
+
+        //WHEN
+        // 페이지 번호, 페이지 크기, 정렬 방식을 설정하여 Pageable 객체 생성
+        val pageable: Pageable = PageRequest.of(
+            3,  // 페이지 번호 (0부터 시작)
+            3,    // 페이지 크기
+        )
+        val result1 : Page<User> = userRepository.findByPageableAndRole(pageable, null)
+        val result2 : Page<User> = userRepository.findByPageableAndRole(Pageable.ofSize(10), null)
+        val result3 : Page<User> = userRepository.findByPageableAndRole(PageRequest.of(0,10), UserRole.MANAGER)
+            ?:throw ModelNotFoundException()
+        //THEN
+        result1.content.size shouldBe 1
+        result2.content.size shouldBe 10
+        result3.content.size shouldBe 5
+    }
+
     companion object {
         private val DEFAULT_MEMBER_LIST = listOf(
-            User(
-                password = "password1",
-                email = "user1@example.com",
-                nickName = "user1",
-                role = UserRole.USER
-                ),
-            User(
-               password = "password2",
-                email = "user2@example.com",
-                nickName = "user2",
-                role = UserRole.MANAGER
-            ),
-            User(
-                password = "password3",
-                email = "user3@example.com",
-                nickName = "user3",
-                role = UserRole.USER
-            ),
-            User(
-                password = "password4",
-                email = "user4@example.com",
-                nickName = "user4",
-                role = UserRole.MANAGER
-            ),
-            User(
-                password = "password5",
-                email = "user5@example.com",
-                nickName = "user5",
-                role = UserRole.USER
-            ),
-            User(
-                password = "password6",
-                email = "user6@example.com",
-                nickName = "user6",
-                role = UserRole.MANAGER
-            ),
-            User(
-                password = "password7",
-                email = "user7@example.com",
-                nickName = "user7",
-                role = UserRole.USER
-            ),
-            User(
-                password = "password8",
-                email = "user8@example.com",
-                nickName = "user8",
-                role = UserRole.MANAGER
-            ),
-            User(
-                password = "password9",
-                email = "user9@example.com",
-                nickName = "user9",
-                role = UserRole.USER
-            ),
-            User(
-                password = "password10",
-                email = "user10@example.com",
-                nickName = "user10",
-                role = UserRole.MANAGER
-            )
+            User(password = "password1", email = "user1@example.com", nickName = "user1", role = UserRole.USER),
+            User(password = "password2", email = "user2@example.com", nickName = "user2", role = UserRole.MANAGER),
+            User(password = "password3", email = "user3@example.com", nickName = "user3", role = UserRole.USER),
+            User(password = "password4", email = "user4@example.com", nickName = "user4", role = UserRole.MANAGER),
+            User(password = "password5", email = "user5@example.com", nickName = "user5", role = UserRole.USER),
+            User(password = "password6", email = "user6@example.com", nickName = "user6", role = UserRole.MANAGER),
+            User(password = "password7", email = "user7@example.com", nickName = "user7", role = UserRole.USER),
+            User(password = "password8", email = "user8@example.com", nickName = "user8", role = UserRole.MANAGER),
+            User(password = "password9", email = "user9@example.com", nickName = "user9", role = UserRole.USER),
+            User(password = "password10", email = "user10@example.com", nickName = "user10", role = UserRole.MANAGER)
         )
     }
 }
