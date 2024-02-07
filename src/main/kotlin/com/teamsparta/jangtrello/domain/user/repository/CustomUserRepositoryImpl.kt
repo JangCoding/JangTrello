@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 
-class UserRepositoryImpl : CustomUserRepository, QueryDslSupport() {
+
+// UserRepositoryImpl 로 설정해도 됨
+class CustomUserRepositoryImpl : CustomUserRepository, QueryDslSupport() {
     private var q_user = QUser.user
 
     override fun findByIdDetailed(id: Long): DetailUser? {
