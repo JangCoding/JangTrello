@@ -1,8 +1,9 @@
 package com.teamsparta.jangtrello.domain.user.dto
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.teamsparta.jangtrello.domain.user.model.DetailUser
 import java.time.LocalDateTime
-
 data class DetailUserResponse(
     //val id:Long,
     val createdAt:LocalDateTime?,
