@@ -1,5 +1,8 @@
 package com.teamsparta.jangtrello.domain.user.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.teamsparta.jangtrello.domain.user.dto.DetailUserResponse
 import com.teamsparta.jangtrello.domain.user.service.UserService
@@ -18,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import java.time.LocalDateTime
 
 
 @SpringBootTest
@@ -26,6 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 class UserControllerTest @Autowired constructor(
     private val mockMvc: MockMvc,
     private val jwtPlugin: JwtPlugin,
+    private val objectMapper: ObjectMapper,
 ) : DescribeSpec({
     extension(SpringExtension)
 
@@ -44,7 +49,7 @@ class UserControllerTest @Autowired constructor(
 
                 // any() 어떤 값을 넣든 every 모든 해당 서비스의 응답은 아래 값이 될 것
                 every{userService.getUser( any() )} returns DetailUserResponse(
-                    createdAt = null,
+                    createdAt = LocalDateTime.of(2024,8,13,23,19,35),
                     email = "coding@jang.com",
                     nickName = "codingjang",
                     role = "USER"
@@ -66,13 +71,16 @@ class UserControllerTest @Autowired constructor(
 
                 result.response.status shouldBe 200 // 여기까진 성공
 
-//                val responseDto = jacksonObjectMapper()   // Gson은 의존성 추가 필요 // Dto 에 @Seirializable 붙이는 방법도 있음
-//                    .readValue(
-//                        result.response.contentAsString,
-//                        DetailUserResponse::class.java
-//                    )
-//
-//                responseDto.nickName shouldBe "codingjang"
+//                val objectMapper = ObjectMapper()
+//                objectMapper.registerModule(JavaTimeModule())
+//                objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+
+                val responseDto = objectMapper // Gson은 의존성 추가 필요 // Dto 에 @Seirializable 붙이는 방법도 있음
+                    .readValue(
+                        result.response.contentAsString,
+                        DetailUserResponse::class.java
+                    )
+                responseDto.nickName shouldBe "q"
             }
         }
     }
