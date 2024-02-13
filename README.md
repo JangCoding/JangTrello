@@ -1,6 +1,6 @@
 # JangTrello
 
-### 코드 개선 내역 ( 24/02/13 )
+### 코드 개선 내역 ( 24/02/06 )
 - Controller, Service 패키지 내 클래스 개선
 - Controller Advice 로 예외 공통화 처리
 - Service 인터페이스와 구현체 분리하여 추상화
@@ -9,7 +9,14 @@
 - Pageable 을 사용하여 페이징 및 정렬 기능
 - 다양한 조건을 동적 쿼리로 처리 ( ID, 역할 )
 - 제목/태그/카테고리/게시글 상태/N일 전 게시글 ( 미완 )
-- SERVICE / REPOSITORY 테스트 코드 만들기  
+
+### 코드 개선 내역 ( 24/02/13 )
+- CONTROLLER 테스트 코드 작성
+  - getUser 에 유저 Id 를 입력했을 때 200 status code 응답과 Projection 으로 생성한 응답 내용을 제대로 출력하는지 테스트
+- SERVICE 테스트 코드 작성
+  - findByNickName 에 닉네임을 입력하여 존재할 때, 존재하지 않을 때 응답 내용 테스트
+- REPOSITORY 테스트 코드 만들기
+  - findByPageableAndRole 에 Role 값에 따른 테스트  
 
 ### TODO ( 24/02/13 )
 - 복습 내용 확인 후 추가
