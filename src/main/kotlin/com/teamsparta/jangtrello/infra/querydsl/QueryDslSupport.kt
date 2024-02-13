@@ -2,7 +2,6 @@ package com.teamsparta.jangtrello.infra.querydsl
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
-
 import jakarta.persistence.PersistenceContext
 
 // querydsl 통해 쿼리 작성시 항상 queryFactory 가 필요.
@@ -20,3 +19,18 @@ abstract class QueryDslSupport {
             return JPAQueryFactory(entityManager)
         }
 }
+
+//
+////자동으로 PageImpl 에 맞게 값 채워주는 메서드 // QClass           // 람다식{} 함수. 람다 함수를 실행한 결과를 JPAQuery<T> 로 가져오겠다는 뜻
+//fun <T> byPaging(pageable: Pageable, path: EntityPathBase<T>, baseQueryFunc: () -> JPAQuery<T>): Page<T> {
+//    val baseQuery = baseQueryFunc() // queryFactory 를 통해 select 하는 Query 생성.
+//    val totalCount = baseQuery      // 위의 쿼리문 결과에 추가로 작업
+//        .select(path.count())       // 결과값 카운트
+//        .fetchOne() ?: 0L
+//    val result = baseQuery
+//        .select(path)
+//        .offset(pageable.offset)
+//        .limit(pageable.pageSize.toLong())
+//        .fetch()
+//    return PageImpl(result, pageable, totalCount)
+//}

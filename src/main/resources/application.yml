@@ -1,11 +1,10 @@
 # SPRING_DATASOURCE_URL=jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?user=postgres.nhkwtfqaasxrujkouogd&password=srAonIjhRZvBBtly
 
-
 spring:
-#  datasource:
-#    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres
-#    username : postgres.nhkwtfqaasxrujkouogd
-#    password : srAonIjhRZvBBtly
+  datasource:
+    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres
+    username : postgres.nhkwtfqaasxrujkouogd
+    password : srAonIjhRZvBBtly
 
   jpa:
     hibernate:
@@ -15,8 +14,8 @@ spring:
       highlight_sql : true
       use_sql_comments : true
       default_batch_fetch_size : 500
-
-
+      hibernate:
+        show_sql: true
 
 logging:
   level:

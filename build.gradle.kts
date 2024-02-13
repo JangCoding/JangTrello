@@ -48,6 +48,8 @@ val mockkVersion = "1.13.8" // mock 위한 툴
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310") // jackson 라이브러리에 datatype 관련 모듈 추가
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") // 테스트는 기본 의존성.
@@ -66,8 +68,8 @@ dependencies {
     // 트랜잭션이 담긴 패키지 jpa 추가
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-	//	// 레포지토리 사용하기 위해 h2 db 추가 // DB 연결하면 안써도 됨
-	//	implementation("com.h2database:h2")
+	//  레포지토리 사용하기 위해 h2 db 추가 // DB 연결하면 안써도 됨
+	implementation("com.h2database:h2")
 
 	// 어플리케이션이 실행될 때만 DB 드라이버를 설치하겠다.
 	runtimeOnly("org.postgresql:postgresql")
@@ -81,6 +83,25 @@ dependencies {
 
 	// AOP 패키지 설정
 	implementation("org.springframework.boot:spring-boot-starter-aop")
+
+	// Data JPA TEST 의존성 추가
+	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+	//implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	//implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+	//kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+	kapt("jakarta.annotation:jakarta.annotation-api")
+	kapt("jakarta.persistence:jakarta.persistence-api")
+
+	//implementation("org.springframework.boot:spring-boot-starter-web")
+	//implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	//implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// Test Code
+	runtimeOnly("com.h2database:h2")
+	//testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//testImplementation("io.mockk:mockk:1.13.9")
+	//testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
+	//testImplementation("io.kotest:kotest-assertions-core:5.7.2")
 }
 
 tasks.withType<KotlinCompile> {
